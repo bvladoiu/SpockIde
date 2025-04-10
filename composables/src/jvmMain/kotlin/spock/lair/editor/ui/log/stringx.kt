@@ -1,5 +1,5 @@
 //common:commonMain:stringx.kt
-package spock.lair.devserver
+package spock.lair.editor.ui.log
 
 /**
  *   ![type.style](id "Name has Spaces")

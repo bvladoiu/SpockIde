@@ -11,17 +11,22 @@ version = "1.0.0"
 kotlin {
     jvmToolchain(17)
     jvm()
-
+    js(IR){
+        browser()
+    }
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":compose"))
-                implementation(libs.kotlinx.datetime)
+                implementation(project(":composables"))
+                implementation(project(":ktor"))
+
             }
         }
         val jvmMain by getting {
-            dependencies {
-            }
+            dependencies {}
+        }
+        val jsMain by getting {
+            dependencies {}
         }
     }
 }

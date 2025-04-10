@@ -11,9 +11,6 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
-import spock.lair.id
-import spock.lair.type
-import spock.lair.style
 
 
 @Composable

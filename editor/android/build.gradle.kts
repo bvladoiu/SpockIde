@@ -25,7 +25,7 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                implementation(project(":composables"))
+                implementation(project(":compose"))
                 implementation(libs.androidx.collection)
                 implementation(compose.desktop.currentOs)
 

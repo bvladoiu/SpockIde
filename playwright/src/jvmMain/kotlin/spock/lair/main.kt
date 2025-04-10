@@ -12,7 +12,7 @@ import kotlinx.coroutines.channels.ClosedReceiveChannelException
 import kotlin.time.Duration.Companion.seconds
 
 object Server {
-    val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    val scope = CoroutineScope(Dispatchers.IO + SupervisorJob() + CoroutineName("DevServerManagerScope"))
     val engine = embeddedServer(CIO, port = EDITOR_PORT, host = HOST, module = Application::module)
 
     init {
@@ -42,7 +42,6 @@ fun Server.stop() {
 }
 
 
-
 fun Application.module() {
     configureSockets()
     launch {
@@ -51,82 +50,82 @@ fun Application.module() {
 }
 
 fun Application.configureRouting() {
-    log("Server::configureRouting")
+    println("Server::configureRouting")
     routing {
         get("/") {
             call.respondText("Hello!")
-            log("Server::get/")
+            println("Server::get/")
         }
     }
 }
 
 
 fun Application.configureSockets() {
-    log("Server::configureSockets")
+    println("Server::configureSockets")
     install(WebSockets) {
-        log("Server::install(WebSockets)")
+        println("Server::install(WebSockets)")
         pingPeriod = 15.seconds
         timeout = 15.seconds
         maxFrameSize = Long.MAX_VALUE
     }
     routing {
-        log("Server::routing")
+        println("Server::routing")
         webSocket("/ws") {
             launch {
-                log("Server::launch::handleOutgoing")
+                println("Server::launch::handleOutgoing")
                 handleOutgoing()
             }
             try {
-                log("Server::handleIncoming")
+                println("Server::handleIncoming")
                 handleIncoming()
             } catch (e: CancellationException) {
-                log("WebSocket session scope cancelled.")
+                println("WebSocket session scope cancelled.")
             } catch (e: Exception) {
-                log("Error in WebSocket session scope: ${e.message}")
+                println("Error in WebSocket session scope: ${e.message}")
             } finally {
-                log("WebSocket session finished for client.")
+                println("WebSocket session finished for client.")
             }
         }
     }
 }
 
 private suspend fun DefaultWebSocketServerSession.handleIncoming() {
-    log("Server::handleIncoming")
+    println("Server::handleIncoming")
     try {
         for (frame in incoming) {
             if (frame is Frame.Text) {
                 val text = frame.readText()
-                log("Server Js->Jvm: $text")
+                println("Server Js->Jvm: $text")
                 bridge.emit(text)
             }
         }
     } catch (e: ClosedReceiveChannelException) {
-        log("Server WS Incoming: Closed.")
+        println("Server WS Incoming: Closed.")
     } catch (e: CancellationException) {
-        log("Server WS Incoming: Cancelled.")
+        println("Server WS Incoming: Cancelled.")
     } catch (e: Exception) {
-        log("Server WS Incoming Error: ${e::class.simpleName} - ${e.message}")
+        println("Server WS Incoming Error: ${e::class.simpleName} - ${e.message}")
     }
 }
 
 private suspend fun DefaultWebSocketServerSession.handleOutgoing() {
-    log("Server::handleOutgoing")
+    println("Server::handleOutgoing")
     try {
-        log("Server::collect")
+        println("Server::collect")
         bridge.collect { text ->
             try {
-                log("Server Jvm->Js: $text")
+                println("Server Jvm->Js: $text")
                 outgoing.send(Frame.Text(text))
             } catch (e: CancellationException) {
-                log("Server::throw cancelation error $e")
+                println("Server::throw cancelation error $e")
                 throw e
             } catch (e: Exception) {
-                log("Server WS Send Error: ${e::class.simpleName} - ${e.message}")
+                println("Server WS Send Error: ${e::class.simpleName} - ${e.message}")
             }
         }
     } catch (e: CancellationException) {
-        log("Server WS Outgoing: Cancelled.")
+        println("Server WS Outgoing: Cancelled.")
     } catch (e: Exception) {
-        log("Server WS Outgoing Error: ${e::class.simpleName} - ${e.message}")
+        println("Server WS Outgoing Error: ${e::class.simpleName} - ${e.message}")
     }
 }

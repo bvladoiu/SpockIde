@@ -8,7 +8,9 @@ import io.ktor.http.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ClosedReceiveChannelException
-import spock.lair.*
+
+val HOST = "localhost"
+val PORT = 7989
 
 object Klient {
 
@@ -16,6 +18,7 @@ object Klient {
         scope.launch {
             while (isActive) {
                 try {
+
                     HttpClient(Js) { install(WebSockets) }
                         .webSocket(method = HttpMethod.Get, host = HOST, port = PORT, path = "/ws") {
                             handleReceived()
@@ -34,15 +37,15 @@ object Klient {
             for (frame in incoming) {
                 if (frame is Frame.Text) {
                     val message = (frame.readText())
-                    bridge.emit(message)//should i just take a lambda parameter on start with the scope?
+              //      bridge.emit(message)//should i just take a lambda parameter on start with the scope?
                 }
             }
         } catch (e: ClosedReceiveChannelException) {
-            log("Klient incoming channel closed.")
+            println("Klient incoming channel closed.")
         } catch (e: CancellationException) {
-            log("Klient receiver cancelled.")
+            println("Klient receiver cancelled.")
         } catch (e: Exception) {
-            log("Klient receive error: ${e.message}")
+            println("Klient receive error: ${e.message}")
         }
     }
 }

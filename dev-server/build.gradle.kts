@@ -9,7 +9,6 @@ group = "spock.lair"
 version = "1.0"
 
 
-
 application {
     mainClass.set("spock.lair.DevServer")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=true")
@@ -18,5 +17,4 @@ application {
 
 dependencies {
     implementation(project(":ktor"))
-
 }

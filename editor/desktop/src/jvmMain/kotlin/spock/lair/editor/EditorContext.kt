@@ -2,13 +2,16 @@ package spock.lair.editor
 
 import androidx.compose.runtime.*
 import kotlinx.coroutines.*
+import spock.lair.klient.jvm.Klient
 
 
 object EditorContext {
 
-    fun close(){
+    fun close() {
         bgScope.cancel()
     }
+
+
     val bgScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     var content: MutableState<String> = mutableStateOf("")
@@ -21,6 +24,7 @@ object EditorContext {
 
     fun switchTheme() = bgScope.launch {
         darkTheme = !darkTheme
+       // bridge.emit("Switched Theme -  dark: $darkTheme")
     }
 
     fun updateEditorContent(newContent: String) {
@@ -35,9 +39,13 @@ object EditorContext {
             logEntries.add(0, entry)
         }
     }
+
     fun save() = bgScope.launch {
+        Klient.sendMessage("Save")
     }
+
     fun emit(arg: String) = bgScope.launch {
+
     }
 
     /*suspend fun loadSite(path: String): String = withContext(Dispatchers.IO) {

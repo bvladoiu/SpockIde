@@ -12,10 +12,9 @@ version = "0.1"
 
 kotlin {
     jvmToolchain(17)
-
-    jvm {}
+    jvm()
     js(IR) {
-        browser{}
+        browser {}
         binaries.executable()
     }
 
@@ -63,9 +62,9 @@ kotlin {
             }
         }
 
-       /* val wasmJsMain by getting {
-            dependencies {}
-        }*/
+        /* val wasmJsMain by getting {
+             dependencies {}
+         }*/
     }
 }
 
