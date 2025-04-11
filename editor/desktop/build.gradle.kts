@@ -23,7 +23,10 @@ kotlin {
             }
         }
         val jvmMain by getting {
-            dependencies {}
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.runtimeSaveable)
+            }
         }
         val jsMain by getting {
             dependencies {}
@@ -32,7 +35,7 @@ kotlin {
 }
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "spock.lair.MainKt"
         nativeDistributions {
             targetFormats(
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,

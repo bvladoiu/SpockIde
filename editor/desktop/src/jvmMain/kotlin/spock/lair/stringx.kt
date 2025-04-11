@@ -1,14 +1,11 @@
-/*
-package spock.lair.strings
+package spock.lair
 
-*/
 /**
  *   ![type.style](id "Name has Spaces")
  *   prop: value
  *   .state: props
  *
- *//*
-
+ */
 
 fun String.type(): String {
     val regex = Regex("""(?:!\[|\[)([A-Za-z0-9]+)""")
@@ -79,4 +76,4 @@ fun String.path(): String? {
 
 fun String.file(): String? {
     return this.prop("file")
-}*/
+}
