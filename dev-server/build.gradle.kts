@@ -16,5 +16,5 @@ application {
 
 
 dependencies {
-    implementation(project(":ktor"))
+    implementation(project(":tools"))
 }

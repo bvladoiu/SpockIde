@@ -35,10 +35,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "lair"
 
-include(":composables")
-include(":editor:desktop")
-include(":playwright")
-include(":ktor")
-include(":dev-server")
+include(":editor")
+include(":tools")
 
 
