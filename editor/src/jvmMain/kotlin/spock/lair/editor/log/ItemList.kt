@@ -1,36 +1,67 @@
 package spock.lair.editor.log
 
-
-import ListEntry
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.VerticalScrollbar
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Text
+import androidx.compose.foundation.rememberScrollbarAdapter
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import spock.lair.App
+import androidx.compose.ui.unit.sp
+import spock.lair.editor.Editor
+
+
 
 @Composable
 fun ItemList() {
-    val entries = App.items
     val listState = rememberLazyListState()
-    Box(modifier = Modifier.fillMaxSize()) {
+    // Editor.items assumed available
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxSize().wrapContentHeight()
+
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(entries) { it ->
-                ListEntry(text = it)
+            items(Editor.items) { itemText ->
+                Text(text = itemText,
+                fontSize = 24.sp)
             }
         }
+
+        VerticalScrollbar(
+            modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+            adapter = rememberScrollbarAdapter(scrollState = listState)
+        )
     }
 }
 
+
+/*
+
+@Composable
+fun ItemList() {
+    val listState = rememberLazyListState()
+
+    LazyColumn(
+        state = listState,
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        items(Editor.items) { itemText ->
+            Text(text = itemText)
+        }
+    }
+}
+*/
 
 /*
 I am 15 years in Android development, Java back end , SQL, and systems engineering.

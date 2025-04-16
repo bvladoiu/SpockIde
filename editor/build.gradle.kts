@@ -25,6 +25,7 @@ kotlin {
         @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
         val jvmMain by getting {
             dependencies {
+                implementation(compose.material3)
                 implementation(compose.runtime)
                 implementation(compose.runtimeSaveable)
                 implementation(compose.desktop.currentOs)
@@ -34,7 +35,6 @@ kotlin {
                 implementation(compose.preview)
                 implementation(compose.components.uiToolingPreview)
 
-                implementation(compose.material3)
                 implementation(compose.animation)
                 implementation(compose.ui)
                 implementation(compose.foundation)

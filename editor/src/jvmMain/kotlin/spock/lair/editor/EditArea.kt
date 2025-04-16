@@ -6,15 +6,17 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
-import spock.lair.App
+import androidx.compose.ui.unit.sp
 
 
 @Composable
 fun EditArea() {
     OutlinedTextField(
-        value = App.content.value,
-        onValueChange = { App.content.value = it },
+        value = Editor.item(),
+        textStyle = TextStyle.Default.copy(fontSize = 24.sp),
+        onValueChange = { Editor.setValue(it) },
         modifier = Modifier.fillMaxSize(),
         label = { Text("Editor") },
         maxLines = Int.MAX_VALUE,

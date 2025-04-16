@@ -1,4 +1,4 @@
-package spock.lair.fileio // Or your preferred package
+package spock.lair.fileio
 
 import java.io.File
 import java.io.IOException

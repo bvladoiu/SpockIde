@@ -7,7 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
-import spock.lair.App
+import spock.lair.editor.Editor
+import spock.lair.editor.Editor.darkTheme
 
 
 @Composable
@@ -109,12 +110,17 @@ fun Clear(onClick: () -> Unit) {
     }
 }
 
+// "\u1F578\uFE0E" // 🕸︎
+// "\u2295" //🌐
 
 @Composable
 fun ThemeSwitcher(modifier: Modifier = Modifier) {
-    val isDark = App.darkTheme
+    var isDark = darkTheme
     IconButton(
-        onClick = { App.switchTheme() },
+        onClick = {
+            isDark = !darkTheme
+            darkTheme = isDark
+        },
         modifier = modifier
     ) {
         Text(
