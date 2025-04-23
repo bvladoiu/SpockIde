@@ -20,31 +20,34 @@ fun setupEditor() {
     document.addEventListener("keydown", { event ->
         val e = event as KeyboardEvent
 
-        // Use both key and keyCode for better browser compatibility
-        when {
-            e.key == "F2" || e.keyCode == 113 -> { 
-                e.preventDefault()
-                toggleTheme() 
-            }
-            e.key == "F3" || e.keyCode == 114 -> { 
-                e.preventDefault()
-                enableEditMode() 
-            }
-            e.key == "F4" || e.keyCode == 115 -> { 
-                e.preventDefault()
-                disableEditMode() 
-            }
-            e.key == "F5" || e.keyCode == 116 -> { 
-                e.preventDefault()
-                savePage() 
-            }
-            e.key == "F8" || e.keyCode == 119 -> { 
-                e.preventDefault()
-                loadPage() 
-            }
-            e.key == "F9" || e.keyCode == 120 -> { 
-                e.preventDefault()
-                deployPage() 
+        // Use Alt+number combinations instead of function keys
+        // Alt key is represented by e.altKey
+        if (e.altKey) {
+            when (e.key) {
+                "2" -> { 
+                    e.preventDefault()
+                    toggleTheme() 
+                }
+                "3" -> { 
+                    e.preventDefault()
+                    enableEditMode() 
+                }
+                "4" -> { 
+                    e.preventDefault()
+                    disableEditMode() 
+                }
+                "5" -> { 
+                    e.preventDefault()
+                    savePage() 
+                }
+                "8" -> { 
+                    e.preventDefault()
+                    loadPage() 
+                }
+                "9" -> { 
+                    e.preventDefault()
+                    deployPage() 
+                }
             }
         }
     })
