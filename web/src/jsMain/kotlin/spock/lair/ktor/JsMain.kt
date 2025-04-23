@@ -20,9 +20,9 @@ fun setupEditor() {
     document.addEventListener("keydown", { event ->
         val e = event as KeyboardEvent
 
-        // Use Alt+number combinations instead of function keys
-        // Alt key is represented by e.altKey
-        if (e.altKey) {
+        // Use Ctrl+number combinations instead of function keys
+        // Ctrl key is represented by e.ctrlKey
+        if (e.ctrlKey) {
             when (e.key) {
                 "2" -> { 
                     e.preventDefault()
