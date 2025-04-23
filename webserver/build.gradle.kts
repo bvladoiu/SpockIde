@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "spock.lair"
-version = "0.0.1"
+version = "1.0.0"
 
 application {
     mainClass = "spock.lair.ApplicationKt"
