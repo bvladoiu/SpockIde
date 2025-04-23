@@ -6,7 +6,6 @@ import org.w3c.dom.Element
 import org.w3c.dom.HTMLAnchorElement
 import org.w3c.dom.HTMLStyleElement
 import org.w3c.dom.asList
-import org.w3c.dom.css.CSSStyleSheet
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.KeyboardEvent
 import org.w3c.dom.events.MouseEvent
@@ -54,7 +53,7 @@ fun main() {
                 onMouseLeave = { event: Event ->
                     if (event.target == target) {
                         println("Mouse left element <${target.tagName.lowercase()} id='${target.id}'>. Waiting for animation end.")
-                        target.addEventListener("transitionend", onAnimationOrTransitionEnd!!)
+                        target.addEventListener("transitionend", onAnimationOrTransitionEnd)
                         target.addEventListener("animationend", onAnimationOrTransitionEnd)
                         target.removeEventListener("mouseleave", onMouseLeave!!)
                     }
@@ -92,8 +91,6 @@ private fun addControlIcons(element: Element) {
         // Remove existing control icons to avoid duplicates
         element.removeChild(existingContainer)
     }
-
-    // Create container for icons using DSL
     val iconContainer = element("div") {
         attribute("data-control-icons", "true")
         attribute("contenteditable", "false") // Make sure the icons are not editable
@@ -101,58 +98,42 @@ private fun addControlIcons(element: Element) {
             iconContainer()
         }
     }
-
-    // Create delete (-) icon using DSL
     val deleteIcon = element("div") {
         text("-")
         attribute("contenteditable", "false")
         style {
-            deleteIcon()
+            controlIcon()
         }
         onClick { event ->
             event.stopPropagation()
             element.parentNode?.removeChild(element)
         }
     }
-
-    // Create duplicate (+) icon using DSL
     val duplicateIcon = element("div") {
         text("+")
         attribute("contenteditable", "false")
         style {
-            duplicateIcon()
+            controlIcon()
         }
         onClick { event ->
             event.stopPropagation()
             val clone = element.cloneNode(true) as Element
             element.parentNode?.insertBefore(clone, element.nextSibling)
-
-            // When we clone an element, we need to reattach event listeners
-            // since they don't get cloned with the DOM structure
             addControlIcons(clone)
         }
     }
 
-    // Add icons to container
     iconContainer.appendChild(deleteIcon)
     iconContainer.appendChild(duplicateIcon)
-
-    // Add container to element
     element.appendChild(iconContainer)
 }
 
 fun disableEditableMode() {
     val elements = document.querySelectorAll("[contenteditable='true']").asList()
-
     elements.forEach { node ->
         if (node is Element) {
-            // Remove contenteditable attribute
             node.removeAttribute("contenteditable")
-
-            // Remove the editable style (red dashed outline)
             node.removeAttribute("style")
-
-            // Remove control icons if they exist
             val controlIcons = node.querySelector("div[data-control-icons='true']")
             if (controlIcons != null) {
                 node.removeChild(controlIcons)
@@ -164,26 +145,16 @@ fun disableEditableMode() {
 }
 
 fun serializeAndDownload() {
-    // First ensure we're in preview mode
     disableEditableMode()
-
-    // Get the HTML content
     val htmlContent = document.documentElement?.outerHTML ?: ""
-
-    // Extract all CSS
     val cssContent = extractCSS()
-
-    // Download HTML and CSS files
     downloadFile(htmlContent, "page.html", "text/html")
     downloadFile(cssContent, "styles.css", "text/css")
-
     console.log("[Serialize] Downloaded HTML and CSS files")
 }
 
 fun extractCSS(): String {
     val cssContent = StringBuilder()
-
-    // Extract CSS from style elements
     val styleElements = document.querySelectorAll("style").asList()
     styleElements.forEach { element ->
         if (element is HTMLStyleElement) {
@@ -191,8 +162,6 @@ fun extractCSS(): String {
             cssContent.append("\n\n")
         }
     }
-
-    // Extract inline styles
     val elementsWithStyle = document.querySelectorAll("[style]").asList()
     elementsWithStyle.forEach { element ->
         if (element is Element) {
@@ -205,12 +174,10 @@ fun extractCSS(): String {
             }
         }
     }
-
     return cssContent.toString()
 }
 
 fun generateSelector(element: Element): String {
-    // Create a simple selector based on tag name, id, and class
     val tagName = element.tagName.lowercase()
     val id = element.id
     val className = element.className
@@ -221,7 +188,6 @@ fun generateSelector(element: Element): String {
             append("#$id")
         }
         if (className.isNotEmpty()) {
-            // Use only the first class to keep it simple
             val firstClass = className.split(" ").firstOrNull()
             if (!firstClass.isNullOrEmpty()) {
                 append(".$firstClass")
@@ -231,21 +197,14 @@ fun generateSelector(element: Element): String {
 }
 
 fun downloadFile(content: String, filename: String, mimeType: String) {
-    // Create a Blob with the content
     val blob = Blob(arrayOf(content), BlobPropertyBag(type = mimeType))
     val url = URL.createObjectURL(blob)
-
-    // Create a download link
     val link = document.createElement("a") as HTMLAnchorElement
     link.href = url
     link.download = filename
-
-    // Trigger download
     document.body?.appendChild(link)
     link.click()
     document.body?.removeChild(link)
-
-    // Clean up
     URL.revokeObjectURL(url)
 }
 
@@ -266,11 +225,6 @@ fun logStyles(element: Element, state: String) {
         if (element.id.isNotEmpty()) {
             append("#${element.id}")
         }
-        // Add classes if desired for more specific identification
-        // keeping this but i am inspecting elements with uninteligible class strings, i.e. i am trying to make computed styles heuristics to compile my own classes by explicitly ignoring this
-        // if (element.className.isNotEmpty()) {
-        //     append(".${element.className.split(' ').joinToString(".")}")
-        // }
     }
     console.log("[$state computed styles for $elementIdentifier]:\n" + appliedStyles.joinToString("\n"))
 }

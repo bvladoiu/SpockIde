@@ -98,7 +98,7 @@ fun CssBuilder.iconContainer() {
     pointerEvents("auto")
 }
 
-fun CssBuilder.controlIcon(backgroundColor: String) {
+fun CssBuilder.controlIcon(backgroundColor: String = "blue") {
     this.backgroundColor(backgroundColor)
     color("white")
     width("16px")
@@ -111,12 +111,4 @@ fun CssBuilder.controlIcon(backgroundColor: String) {
     fontWeight("bold")
     fontSize("14px")
     userSelect("none")
-}
-
-fun CssBuilder.deleteIcon() {
-    controlIcon("red")
-}
-
-fun CssBuilder.duplicateIcon() {
-    controlIcon("green")
 }
