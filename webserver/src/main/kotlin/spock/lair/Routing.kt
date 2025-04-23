@@ -97,5 +97,38 @@ fun Application.configureRouting() {
 
             call.respondText("Deployment triggered successfully", status = HttpStatusCode.OK)
         }
+
+        get("/edit") {
+            call.respondHtml {
+                head {
+                    title { +"Page Editor" }
+                    link(rel = "stylesheet", href = "/static/styles.css", type = "text/css")
+                }
+                body {
+                    div {
+                        id = "page-content"
+                        heroSection("hero-1", "Welcome to the Page Editor")
+                        contentSection("section-1", "First Section", "This is the content of the first section.")
+                        contentSection("section-2", "Second Section", "This is the content of the second section.")
+                    }
+                    script(src = "/static/web.js") {
+                        attributes["defer"] = "true"
+                    }
+                }
+            }
+        }
+
+        get("/view/{pageName}") {
+            val pageName = call.parameters["pageName"] ?: return@get call.respondText("Missing page name", status = HttpStatusCode.BadRequest)
+
+            val file = File("static/$pageName.deployable.html")
+            if (!file.exists()) {
+                call.respondText("Deployed page not found", status = HttpStatusCode.NotFound)
+                return@get
+            }
+
+            val content = file.readText()
+            call.respondText(content, ContentType.Text.Html)
+        }
     }
 }

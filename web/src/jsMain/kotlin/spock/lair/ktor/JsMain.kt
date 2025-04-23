@@ -19,13 +19,33 @@ fun setupEditor() {
     // Set up keyboard shortcuts
     document.addEventListener("keydown", { event ->
         val e = event as KeyboardEvent
-        when (e.key) {
-            "F3" -> { enableEditMode(); e.preventDefault() }
-            "F4" -> { disableEditMode(); e.preventDefault() }
-            "F2" -> { toggleTheme(); e.preventDefault() }
-            "F5" -> { savePage(); e.preventDefault() }
-            "F8" -> { loadPage(); e.preventDefault() }
-            "F9" -> { deployPage(); e.preventDefault() }
+
+        // Use both key and keyCode for better browser compatibility
+        when {
+            e.key == "F2" || e.keyCode == 113 -> { 
+                e.preventDefault()
+                toggleTheme() 
+            }
+            e.key == "F3" || e.keyCode == 114 -> { 
+                e.preventDefault()
+                enableEditMode() 
+            }
+            e.key == "F4" || e.keyCode == 115 -> { 
+                e.preventDefault()
+                disableEditMode() 
+            }
+            e.key == "F5" || e.keyCode == 116 -> { 
+                e.preventDefault()
+                savePage() 
+            }
+            e.key == "F8" || e.keyCode == 119 -> { 
+                e.preventDefault()
+                loadPage() 
+            }
+            e.key == "F9" || e.keyCode == 120 -> { 
+                e.preventDefault()
+                deployPage() 
+            }
         }
     })
 
