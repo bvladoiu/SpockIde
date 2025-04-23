@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
@@ -17,6 +16,7 @@ dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.websockets)
     implementation(libs.ktor.server.html.builder)
+    implementation(libs.ktor.server.compression)
     implementation(libs.kotlinx.html)
     implementation(libs.kotlin.css)
     implementation(libs.ktor.server.cio)
