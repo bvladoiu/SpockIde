@@ -17,7 +17,7 @@ kotlin {
 
         val jsMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-browser-js:2025.4.13")
+                implementation(libs.kotlin.wrappers.browser.js)
             }
         }
     }
