@@ -1,5 +1,5 @@
 // file :web:jsMain:JsMain.kt
-package spock.lair.ktor
+package spock.lair
 
 import kotlinx.browser.document
 import kotlinx.browser.window

@@ -1,4 +1,4 @@
-package spock.lair.ktor
+package spock.lair
 
 import kotlinx.browser.document
 import org.w3c.dom.Element
