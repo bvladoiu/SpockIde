@@ -42,5 +42,6 @@ rootProject.name = "lair"
 //include(":tools")
 include(":webserver")
 include(":web")
+include(":browser")
 
 

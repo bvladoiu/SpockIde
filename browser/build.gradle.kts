@@ -47,7 +47,7 @@ kotlin {
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.js)
                 implementation(libs.ktor.client.websockets)
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-browser-js:2025.4.13")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-browser:1.0.0-pre.656")
             }
         }
     }
