@@ -1,5 +1,4 @@
-// File: src/main/kotlin/spock/lair/main.kt (or where your Ktor setup is)
-package spock.lair.devserver // Or your main package
+package spock.lair
 
 import io.ktor.server.application.*
 import io.ktor.server.cio.*
@@ -9,19 +8,18 @@ import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.channels.ClosedReceiveChannelException
-import kotlin.time.Duration.Companion.seconds // Correct Duration import
+import kotlin.time.Duration.Companion.seconds
 
 object ServerConfig {
     val host = "localhost"
     val port = 7989
 }
 
-fun main() {
+fun mainRun() {
     println("Starting server on ${ServerConfig.host}:${ServerConfig.port}...")
     embeddedServer(CIO, port = ServerConfig.port, host = ServerConfig.host, module = Application::module)
         .start(wait = true)
 
-    // Add shutdown hook to gracefully stop managers
     Runtime.getRuntime().addShutdownHook(Thread {
         println("Shutdown hook triggered.")
         DevServerManager.shutdown()

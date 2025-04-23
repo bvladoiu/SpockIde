@@ -70,7 +70,7 @@ fun cli() {
                 "${Storage.site()}\n" +
                 "${Storage.local()}\n" +
                 "${Storage.public()}" +
-                " ${Storage.save("[type.subtype](accurate)")}\" +" +
+               // " ${Storage.save("[type.subtype](accurate)")}\" +" +
                 "" +
                 ""
     )

@@ -15,3 +15,37 @@ plugins {
 tasks.named("dependencyUpdates").configure {
 
 }
+
+val jsStaticDevDir = layout.buildDirectory.dir("../static")
+
+tasks.register("copyJsStaticForDev", DefaultTask::class) {
+    group = "build"
+    description = "Builds the :web development JS bundle and copies output to Ktor's static serving directory."
+    dependsOn(":web:jsBrowserProductionWebpack")
+
+    doLast {
+        val jsDevBuildDir = project(":web").buildDir.resolve("kotlin-webpack/js/productionExecutable")
+        jsStaticDevDir.get().asFile.mkdirs()
+        copy {
+            from(jsDevBuildDir)
+            into(jsStaticDevDir)
+            include("*.js")
+            include("*.js.map")
+        }
+        println("Copied JS dev files to: ${jsStaticDevDir.get().asFile.absolutePath}")
+    }
+}
+
+tasks.register("runWebserverDev", DefaultTask::class) {
+    group = "application"
+    description = "Runs the :webserver in development mode, serving static JS from the dev directory."
+    dependsOn("copyJsStaticForDev")
+    val ktorRunTask = tasks.getByPath(":webserver:run")
+    (ktorRunTask as JavaExec).apply{
+        jvmArgs = listOf(
+            "-Dio.ktor.development=${project.hasProperty("development") || project.gradle.startParameter.taskNames.any { it.contains("runWebserverDev") } }",
+        )
+        workingDir = rootDir
+    }
+    dependsOn(ktorRunTask)
+}

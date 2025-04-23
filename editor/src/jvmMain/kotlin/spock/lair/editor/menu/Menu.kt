@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.microsoft.playwright.Browser
+//import com.microsoft.playwright.Browser
 import kotlinx.coroutines.delay
 import spock.lair.Spock
 import spock.lair.editor.Editor

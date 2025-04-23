@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.maven
+
 //lair(root):settings.gradle
 pluginManagement {
     repositories {
@@ -30,12 +32,15 @@ dependencyResolutionManagement {
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         maven("https://maven.pkg.jetbrains.space/public/p/ktor/maven")
+        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
     }
 }
 
 rootProject.name = "lair"
 
-include(":editor")
-include(":tools")
+//include(":editor")
+//include(":tools")
+include(":webserver")
+include(":web")
 
 

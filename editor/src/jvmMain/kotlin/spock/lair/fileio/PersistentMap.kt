@@ -222,7 +222,7 @@ class PersistentMap(private val filePath: String) {
     }
 }
 
-fun main() {
+fun test() {
     // --- Add this line ---
     val workingDir = System.getProperty("user.dir")
     println(">>> Current Working Directory: $workingDir")

@@ -8,7 +8,7 @@ import spock.lair.strings.id
 import spock.lair.strings.type
 
 object Browser {
-    var scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+    var scope = CoroutineScope(Dispatchers. + SupervisorJob())
     var playwright = Playwright.create()
     var webkit: Browser = playwright.webkit().launch(BrowserType.LaunchOptions().setHeadless(false))
     var page: Page = webkit.newPage()
