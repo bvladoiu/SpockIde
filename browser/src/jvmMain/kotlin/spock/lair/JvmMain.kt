@@ -21,7 +21,7 @@ fun run(args: String? = null) {
     page.onConsoleMessage { message ->
         trace(message)
     }
-    val scriptPath = "build/kotlin-webpack/js/productionExecutable/tools.js"
+    val scriptPath = "build/kotlin-webpack/js/productionExecutable/browser.js"
     val scriptContent = java.io.File(scriptPath).readText()
     page.addInitScript(scriptContent)
     page.navigate(args?.type() ?: "https://relay.material.io/")

@@ -48,6 +48,7 @@ kotlin {
                 implementation(libs.ktor.client.js)
                 implementation(libs.ktor.client.websockets)
                 implementation(libs.kotlin.wrappers.browser)
+                implementation(libs.kotlin.css)
             }
         }
     }
