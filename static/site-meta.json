@@ -1,0 +1,25 @@
+{
+  "languages": [
+    "en",
+    "de"
+  ],
+  "menu": [
+    "home",
+    "press",
+    "dev-blog",
+    "company"
+  ],
+  "pages": [
+    "home",
+    "press",
+    "dev-blog",
+    "company",
+    "contact",
+    "article"
+  ],
+  "templates": [
+    "scaffold",
+    "article",
+    "contact"
+  ]
+}
