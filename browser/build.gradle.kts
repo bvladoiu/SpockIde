@@ -2,6 +2,10 @@
 
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
+// Task name constants
+val jvmRunTask = "jvmRun"
+val jsBrowserProductionWebpackTask = "jsBrowserProductionWebpack"
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
 }
@@ -55,7 +59,7 @@ kotlin {
 }
 
 gradle.projectsEvaluated {
-    tasks.matching { it.name == "jvmRun" }.configureEach {
-        dependsOn("jsBrowserProductionWebpack")
+    tasks.matching { it.name == jvmRunTask }.configureEach {
+        dependsOn(jsBrowserProductionWebpackTask)
     }
 }
