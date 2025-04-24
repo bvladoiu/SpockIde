@@ -10,6 +10,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.css.*
 import kotlinx.html.*
+import spock.lair.css.*
 import java.io.File
 
 fun Application.configureRouting() {
@@ -20,7 +21,7 @@ fun Application.configureRouting() {
         get("/") {
             call.respondHtml {
                 head {
-                    link(rel = "stylesheet", href = "/styles.css", type = "text/css")
+                    // CSS is now served dynamically from the CSS DSL
                 }
 
                 body {
@@ -33,11 +34,57 @@ fun Application.configureRouting() {
             }
         }
 
+        // Dynamic HTML endpoint with /locale/page_name pattern
+        get("/{locale}/{pageName}") {
+            val locale = call.parameters["locale"] ?: "en"
+            val pageName = call.parameters["pageName"] ?: "home"
+
+            val pageObject = PageObject(locale, pageName)
+
+            call.respondHtml {
+                scaffold(pageObject) {
+                    when (pageName) {
+                        "home" -> {
+                            hero()
+                            competences()
+                            latest()
+                        }
+                        "press", "dev-blog" -> {
+                            posts()
+                        }
+                        "company" -> {
+                            hero()
+                            team()
+                        }
+                        "article" -> {
+                            // Article page will be implemented later
+                            section("article") {
+                                h1 { +"Article page coming soon" }
+                            }
+                        }
+                        "contact" -> {
+                            // Contact page will be implemented later
+                            section("contact") {
+                                h1 { +"Contact page coming soon" }
+                            }
+                        }
+                        else -> {
+                            section("not-found") {
+                                h1 { +"Page not found" }
+                                p { +"The requested page '$pageName' does not exist." }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         get("/home") {
             call.respondHtml {
                 head {
                     title { +"Page Editor" }
-                    link(rel = "stylesheet", href = "/static/styles.css", type = "text/css")
+                    // CSS is now served dynamically from the CSS DSL
+                    style { unsafe { +mainStyles().toString() } }
                 }
                 body {
                     div {
@@ -102,7 +149,8 @@ fun Application.configureRouting() {
             call.respondHtml {
                 head {
                     title { +"Page Editor" }
-                    link(rel = "stylesheet", href = "/static/styles.css", type = "text/css")
+                    // CSS is now served dynamically from the CSS DSL
+                    style { unsafe { +mainStyles().toString() } }
                 }
                 body {
                     div {

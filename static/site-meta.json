@@ -17,8 +17,8 @@
     "contact",
     "article"
   ],
-  "templates": [
-    "scaffold",
+  "main": [
+    "sections",
     "article",
     "contact"
   ]

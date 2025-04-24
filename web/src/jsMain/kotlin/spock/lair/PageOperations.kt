@@ -53,12 +53,7 @@ fun loadPage() {
                 val pageContent = document.getElementById("page-content")
                 if (pageContent != null) {
                     pageContent.innerHTML = content
-
-                    if (pageContent.className.contains("is-editing")) {
-                        rebindEditingControls()
-                    }
                 }
-
                 console.log("Page loaded successfully")
             }
         } else {

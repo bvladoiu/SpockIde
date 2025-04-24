@@ -1,0 +1,56 @@
+{
+  "title": "Developer Blog",
+  "description": "Technical articles and insights from our development team",
+  "posts": [
+    {
+      "id": "kotlin-multiplatform",
+      "title": "Building with Kotlin Multiplatform",
+      "date": "2023-10-20",
+      "summary": "How we use Kotlin Multiplatform to share code across platforms.",
+      "content": "In this article, we explore how we use Kotlin Multiplatform to share code between our Android, iOS, and web applications. We discuss the benefits of this approach, including reduced code duplication, improved maintainability, and faster development cycles. We also share some of the challenges we've faced and how we've overcome them.",
+      "image": "/static/images/blog/kotlin-multiplatform.jpg",
+      "tags": ["Kotlin", "Multiplatform", "Mobile"],
+      "featured": true
+    },
+    {
+      "id": "ktor-server",
+      "title": "Building Scalable APIs with Ktor",
+      "date": "2023-09-15",
+      "summary": "Our approach to building scalable and maintainable APIs using Ktor.",
+      "content": "Ktor is a powerful framework for building asynchronous servers and clients in Kotlin. In this post, we share our experience using Ktor to build scalable and maintainable APIs. We cover topics such as routing, authentication, content negotiation, and testing. We also discuss how we've structured our Ktor applications to make them easy to maintain and extend.",
+      "image": "/static/images/blog/ktor-server.jpg",
+      "tags": ["Ktor", "API", "Backend"],
+      "featured": false
+    },
+    {
+      "id": "compose-multiplatform",
+      "title": "UI Development with Compose Multiplatform",
+      "date": "2023-08-25",
+      "summary": "How we're using Compose Multiplatform for cross-platform UI development.",
+      "content": "Compose Multiplatform is an exciting new UI toolkit that allows developers to build native UIs for Android, iOS, desktop, and web using a single codebase. In this article, we share our experience adopting Compose Multiplatform for our projects. We discuss the benefits of this approach, including improved developer productivity and consistent UI across platforms. We also share some tips and tricks we've learned along the way.",
+      "image": "/static/images/blog/compose-multiplatform.jpg",
+      "tags": ["Compose", "UI", "Multiplatform"],
+      "featured": false
+    },
+    {
+      "id": "kotlin-coroutines",
+      "title": "Asynchronous Programming with Kotlin Coroutines",
+      "date": "2023-07-30",
+      "summary": "How we use Kotlin Coroutines for asynchronous programming.",
+      "content": "Kotlin Coroutines provide a powerful way to write asynchronous, non-blocking code in a sequential style. In this post, we share our experience using Kotlin Coroutines in our applications. We cover topics such as structured concurrency, flow, and error handling. We also discuss how we've integrated Coroutines with other libraries and frameworks in our tech stack.",
+      "image": "/static/images/blog/kotlin-coroutines.jpg",
+      "tags": ["Kotlin", "Coroutines", "Asynchronous"],
+      "featured": false
+    },
+    {
+      "id": "kotlin-dsl",
+      "title": "Building DSLs with Kotlin",
+      "date": "2023-06-20",
+      "summary": "How we use Kotlin's DSL capabilities to create expressive and type-safe APIs.",
+      "content": "Kotlin's support for building Domain-Specific Languages (DSLs) allows developers to create expressive and type-safe APIs. In this article, we share our experience building DSLs with Kotlin. We discuss the language features that make this possible, such as extension functions, lambda expressions with receivers, and infix functions. We also share some examples of DSLs we've built for our projects.",
+      "image": "/static/images/blog/kotlin-dsl.jpg",
+      "tags": ["Kotlin", "DSL", "API Design"],
+      "featured": false
+    }
+  ]
+}

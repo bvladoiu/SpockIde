@@ -8,6 +8,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.css.*
 import kotlinx.html.*
+import spock.lair.css.*
 
 fun FlowContent.heroSection(id: String, title: String) {
     div {
@@ -50,21 +51,14 @@ fun Application.configureTemplating() {
             }
         }
         get("/styles.css") {
-            call.respondCss {
-                body {
-                    backgroundColor = Color.darkBlue
-                    margin(0.px)
-                }
-                rule("h1.page-title") {
-                    color = Color.white
-                }
-            }
+            call.respondMainCss()
         }
 
         get("/html-css-dsl") {
             call.respondHtml {
                 head {
-                    link(rel = "stylesheet", href = "/styles.css", type = "text/css")
+                    // CSS is now served dynamically from the CSS DSL
+                    style { unsafe { +mainStyles().toString() } }
                 }
                 body {
                     h1(classes = "page-title") {

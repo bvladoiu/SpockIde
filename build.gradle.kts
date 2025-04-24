@@ -71,7 +71,4 @@ tasks.register(runBrowserTask, DefaultTask::class) {
         workingDir = rootDir
     }
     dependsOn(browserRunTask)
-
-    // Ensure browserJvmRunTask runs after copyJsStaticTask
-    browserRunTask.mustRunAfter(copyJsStaticTask)
 }

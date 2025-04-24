@@ -1,0 +1,87 @@
+{
+  "title": "Our Company",
+  "description": "Meet our team of talented professionals",
+  "hero": {
+    "title": "Our Team",
+    "subtitle": "We're a diverse group of passionate individuals dedicated to creating innovative solutions",
+    "image": "/static/images/company/team.jpg"
+  },
+  "team": [
+    {
+      "id": "john-doe",
+      "name": "John Doe",
+      "position": "CEO & Founder",
+      "bio": "John has over 15 years of experience in the tech industry. He founded our company in 2010 with a vision to create innovative solutions that solve real-world problems.",
+      "image": "/static/images/company/john-doe.jpg",
+      "social": {
+        "linkedin": "https://linkedin.com/in/johndoe",
+        "twitter": "https://twitter.com/johndoe",
+        "github": "https://github.com/johndoe"
+      }
+    },
+    {
+      "id": "jane-smith",
+      "name": "Jane Smith",
+      "position": "CTO",
+      "bio": "Jane is a technology leader with a background in computer science and artificial intelligence. She oversees our technical strategy and ensures we're using the right technologies to solve our customers' problems.",
+      "image": "/static/images/company/jane-smith.jpg",
+      "social": {
+        "linkedin": "https://linkedin.com/in/janesmith",
+        "twitter": "https://twitter.com/janesmith",
+        "github": "https://github.com/janesmith"
+      }
+    },
+    {
+      "id": "michael-johnson",
+      "name": "Michael Johnson",
+      "position": "Lead Developer",
+      "bio": "Michael is a full-stack developer with expertise in Kotlin, JavaScript, and cloud technologies. He leads our development team and ensures we deliver high-quality software.",
+      "image": "/static/images/company/michael-johnson.jpg",
+      "social": {
+        "linkedin": "https://linkedin.com/in/michaeljohnson",
+        "github": "https://github.com/michaeljohnson"
+      }
+    }
+  ],
+  "values": {
+    "title": "Our Values",
+    "items": [
+      {
+        "title": "Innovation",
+        "description": "We're constantly exploring new technologies and approaches to solve problems in creative ways."
+      },
+      {
+        "title": "Quality",
+        "description": "We're committed to delivering high-quality solutions that exceed our customers' expectations."
+      },
+      {
+        "title": "Collaboration",
+        "description": "We believe in the power of teamwork and collaboration to achieve great results."
+      }
+    ]
+  },
+  "careers": {
+    "title": "Join Our Team",
+    "description": "We're always looking for talented individuals to join our team. Check out our current openings below.",
+    "openings": [
+      {
+        "title": "Senior Kotlin Developer",
+        "location": "Remote",
+        "type": "Full-time",
+        "link": "/en/careers/senior-kotlin-developer"
+      },
+      {
+        "title": "UX/UI Designer",
+        "location": "Berlin, Germany",
+        "type": "Full-time",
+        "link": "/en/careers/ux-ui-designer"
+      },
+      {
+        "title": "DevOps Engineer",
+        "location": "Remote",
+        "type": "Full-time",
+        "link": "/en/careers/devops-engineer"
+      }
+    ]
+  }
+}
