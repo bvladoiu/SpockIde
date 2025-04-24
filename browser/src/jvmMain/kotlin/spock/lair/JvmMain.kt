@@ -28,7 +28,7 @@ fun run(args: String? = null) {
 }
 
 fun trace(message: ConsoleMessage) {
-    val type = message.type().uppercase() // e.g., LOG, ERROR, WARNING
+    val type = message.type().uppercase()
     val text = try {
         if (message.args().isNotEmpty()) {
             message.args().joinToString(" ") { arg ->
@@ -42,7 +42,7 @@ fun trace(message: ConsoleMessage) {
             message.text()
         }
     } catch (e: Exception) {
-        "[Error getting message text: ${e.message}]" // Fallback
+        "[Error getting message text: ${e.message}]"
     }
     val location = message.location()
     println("[Browser $type @ $location]: $text")
