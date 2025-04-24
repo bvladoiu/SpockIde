@@ -36,14 +36,15 @@ tasks.register(copyJsStaticTask, DefaultTask::class) {
 
     doLast {
         val jsDevBuildDir = project(":web").buildDir.resolve("kotlin-webpack/js/productionExecutable")
-        jsStaticDevDir.get().asFile.mkdirs()
+        val staticDir = rootDir.resolve("static")
+        staticDir.mkdirs()
         copy {
             from(jsDevBuildDir)
-            into(jsStaticDevDir)
+            into(staticDir)
             include("*.js")
             include("*.js.map")
         }
-        println("Copied JS dev files to: ${jsStaticDevDir.get().asFile.absolutePath}")
+        println("Copied JS dev files to: ${staticDir.absolutePath}")
     }
 }
 
@@ -70,4 +71,7 @@ tasks.register(runBrowserTask, DefaultTask::class) {
         workingDir = rootDir
     }
     dependsOn(browserRunTask)
+
+    // Ensure browserJvmRunTask runs after copyJsStaticTask
+    browserRunTask.mustRunAfter(copyJsStaticTask)
 }

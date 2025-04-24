@@ -102,7 +102,7 @@ fun showShortcutsModal() {
 
     modal.appendChild(header)
     modal.appendChild(content)
-    
+
     document.body?.appendChild(overlay)
     document.body?.appendChild(modal)
 }
