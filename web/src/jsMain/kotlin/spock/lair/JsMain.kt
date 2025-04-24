@@ -59,13 +59,19 @@ fun enableEditMode() {
     val pageContent = document.getElementById("page-content") ?: return
     pageContent.className += " is-editing"
 
-    // Make editable elements actually editable
-    val editableElements = pageContent.querySelectorAll("[data-editable='true']").asList()
-    for (element in editableElements) {
-        (element as Element).setAttribute("contenteditable", "true")
+    // Make all text elements editable (like in browser module)
+    val elements = document.querySelectorAll("*").asList()
+    elements.forEach { node ->
+        if (node is Element && node.textContent?.trim()?.isNotEmpty() == true) {
+            node.setAttribute("contenteditable", "true")
+            node.style {
+                editableElement()
+            }
+            addControlIcons(node)
+        }
     }
 
-    // Add component controls
+    // Also maintain the original component controls for backward compatibility
     addComponentControls()
 
     console.log("Edit mode enabled")
@@ -75,13 +81,20 @@ fun disableEditMode() {
     val pageContent = document.getElementById("page-content") ?: return
     pageContent.className = pageContent.className.replace("is-editing", "").trim()
 
-    // Make elements non-editable
-    val editableElements = pageContent.querySelectorAll("[data-editable='true']").asList()
-    for (element in editableElements) {
-        (element as Element).removeAttribute("contenteditable")
+    // Make all elements non-editable (like in browser module)
+    val elements = document.querySelectorAll("[contenteditable='true']").asList()
+    elements.forEach { node ->
+        if (node is Element) {
+            node.removeAttribute("contenteditable")
+            node.removeAttribute("style")
+            val controlIcons = node.querySelector("div[data-control-icons='true']")
+            if (controlIcons != null) {
+                node.removeChild(controlIcons)
+            }
+        }
     }
 
-    // Remove all control buttons
+    // Also remove the original component control buttons for backward compatibility
     val buttons = document.querySelectorAll(".add-button, .remove-button").asList()
     for (button in buttons) {
         (button as Element).remove()
@@ -205,9 +218,23 @@ fun savePage() {
     val tempDiv = document.createElement("div")
     tempDiv.innerHTML = content
 
+    // Remove original component control buttons
     val buttons = tempDiv.querySelectorAll(".add-button, .remove-button").asList()
     for (button in buttons) {
         (button as Element).remove()
+    }
+
+    // Remove control icons from browser-style editing
+    val controlIcons = tempDiv.querySelectorAll("div[data-control-icons='true']").asList()
+    for (icon in controlIcons) {
+        (icon as Element).remove()
+    }
+
+    // Remove contenteditable attribute and style from all elements
+    val editableElements = tempDiv.querySelectorAll("[contenteditable='true']").asList()
+    for (element in editableElements) {
+        (element as Element).removeAttribute("contenteditable")
+        (element as Element).removeAttribute("style")
     }
 
     val cleanContent = tempDiv.innerHTML
@@ -247,14 +274,21 @@ fun loadPage() {
 }
 
 fun rebindEditingControls() {
+    val pageContent = document.getElementById("page-content") ?: return
+
     // Re-add component controls if we're in edit mode
     addComponentControls()
 
-    // Make editable elements actually editable again
-    val pageContent = document.getElementById("page-content") ?: return
-    val editableElements = pageContent.querySelectorAll("[data-editable='true']").asList()
-    for (element in editableElements) {
-        (element as Element).setAttribute("contenteditable", "true")
+    // Make all text elements editable again (like in browser module)
+    val elements = document.querySelectorAll("*").asList()
+    elements.forEach { node ->
+        if (node is Element && node.textContent?.trim()?.isNotEmpty() == true) {
+            node.setAttribute("contenteditable", "true")
+            node.style {
+                editableElement()
+            }
+            addControlIcons(node)
+        }
     }
 }
 
@@ -268,4 +302,52 @@ fun deployPage() {
             console.error("Failed to trigger deployment")
         }
     }
+}
+
+/**
+ * Adds + and - control icons to the top right corner of the given element.
+ * The - icon deletes the node, and the + icon duplicates it.
+ */
+private fun addControlIcons(element: Element) {
+    // Check if the element already has control icons
+    val existingContainer = element.querySelector("div[data-control-icons='true']")
+    if (existingContainer != null) {
+        // Remove existing control icons to avoid duplicates
+        element.removeChild(existingContainer)
+    }
+    val iconContainer = element("div") {
+        attribute("data-control-icons", "true")
+        attribute("contenteditable", "false") // Make sure the icons are not editable
+        style {
+            iconContainer()
+        }
+    }
+    val deleteIcon = element("div") {
+        text("-")
+        attribute("contenteditable", "false")
+        style {
+            controlIcon()
+        }
+        onClick { event ->
+            event.stopPropagation()
+            element.parentNode?.removeChild(element)
+        }
+    }
+    val duplicateIcon = element("div") {
+        text("+")
+        attribute("contenteditable", "false")
+        style {
+            controlIcon()
+        }
+        onClick { event ->
+            event.stopPropagation()
+            val clone = element.cloneNode(true) as Element
+            element.parentNode?.insertBefore(clone, element.nextSibling)
+            addControlIcons(clone)
+        }
+    }
+
+    iconContainer.appendChild(deleteIcon)
+    iconContainer.appendChild(duplicateIcon)
+    element.appendChild(iconContainer)
 }
