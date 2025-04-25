@@ -56,13 +56,6 @@ private fun CSSBuilder.addStyles(other: CSSBuilder) {
 }
 
 /**
- * Extension function to respond with CSS.
- */
-suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {
-    this.respondText(CSSBuilder().apply(builder).toString(), ContentType.Text.CSS)
-}
-
-/**
  * Extension function to respond with the main styles.
  */
 suspend fun ApplicationCall.respondMainCss() {
