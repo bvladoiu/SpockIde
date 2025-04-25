@@ -18,82 +18,6 @@ fun HTML.scaffold(pageObject: PageObject, block: ScaffoldContext.() -> Unit) {
         meta(charset = "UTF-8")
         // CSS is now served dynamically from the CSS DSL
         style { unsafe { +mainStyles().toString() } }
-
-        // Include theme styles inline
-        style(type = "text/css") {
-            unsafe {
-                +"""
-                :root {
-                    /* Primary colors */
-                    --color-primary: #0066cc;
-                    --color-primary-dark: #004499;
-                    --color-primary-light: #e6f7ff;
-
-                    /* Secondary colors */
-                    --color-secondary: #ff9900;
-                    --color-secondary-dark: #cc7a00;
-                    --color-secondary-light: #ffe6cc;
-
-                    /* Neutral colors */
-                    --color-text: #333333;
-                    --color-text-light: #666666;
-                    --color-background: #f8f8f8;
-                    --color-background-light: #ffffff;
-                    --color-border: #eeeeee;
-
-                    /* Feedback colors */
-                    --color-success: #28a745;
-                    --color-warning: #ffc107;
-                    --color-error: #dc3545;
-                    --color-info: #17a2b8;
-
-                    /* Typography */
-                    --font-family: Arial, sans-serif;
-                    --font-size-base: 16px;
-                    --font-size-small: 14px;
-                    --font-size-large: 18px;
-                    --font-size-h1: 48px;
-                    --font-size-h2: 32px;
-                    --font-size-h3: 24px;
-                    --font-size-h4: 20px;
-
-                    /* Spacing */
-                    --spacing-xs: 5px;
-                    --spacing-sm: 10px;
-                    --spacing-md: 20px;
-                    --spacing-lg: 30px;
-                    --spacing-xl: 60px;
-
-                    /* Border radius */
-                    --border-radius-sm: 4px;
-                    --border-radius-md: 8px;
-                    --border-radius-lg: 16px;
-                    --border-radius-circle: 50%;
-
-                    /* Shadows */
-                    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
-                    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.1);
-                    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
-
-                    /* Transitions */
-                    --transition-fast: 0.2s;
-                    --transition-normal: 0.3s;
-                    --transition-slow: 0.5s;
-
-                    /* Layout */
-                    --container-width: 1200px;
-                    --header-height: 80px;
-                    --footer-height: 200px;
-
-                    /* Breakpoints */
-                    --breakpoint-sm: 576px;
-                    --breakpoint-md: 768px;
-                    --breakpoint-lg: 992px;
-                    --breakpoint-xl: 1200px;
-                }
-                """
-            }
-        }
     }
 
     body {
@@ -105,7 +29,7 @@ fun HTML.scaffold(pageObject: PageObject, block: ScaffoldContext.() -> Unit) {
             scaffoldContext.apply(block)
         }
 
-        script(src = "/static/web.js") {
+        script(src = "/static/common/web.js") {
             attributes["defer"] = "true"
         }
     }

@@ -1,0 +1,57 @@
+{
+  "title": "Home Page",
+  "sections": {
+    "hero": {
+      "title": "Welcome to Our Website",
+      "subtitle": "We provide innovative solutions for your business",
+      "image": "/static/common/images/hero.jpg",
+      "cta": {
+        "text": "Learn More",
+        "url": "/en/about"
+      }
+    },
+    "competences": {
+      "title": "Our Competences",
+      "items": [
+        {
+          "title": "Web Development",
+          "description": "We create modern, responsive websites using the latest technologies.",
+          "icon": "code"
+        },
+        {
+          "title": "Mobile Apps",
+          "description": "Native and cross-platform mobile applications for iOS and Android.",
+          "icon": "smartphone"
+        },
+        {
+          "title": "Cloud Solutions",
+          "description": "Scalable cloud infrastructure and services for your business.",
+          "icon": "cloud"
+        }
+      ]
+    },
+    "latest": {
+      "title": "Latest News",
+      "posts": [
+        {
+          "title": "New Website Launch",
+          "date": "2023-10-15",
+          "summary": "We're excited to announce the launch of our new website.",
+          "url": "/en/press/new-website-launch"
+        },
+        {
+          "title": "Mobile App Update",
+          "date": "2023-09-28",
+          "summary": "Our mobile app has been updated with new features.",
+          "url": "/en/press/mobile-app-update"
+        },
+        {
+          "title": "Cloud Services Expansion",
+          "date": "2023-09-10",
+          "summary": "We're expanding our cloud services to include new regions.",
+          "url": "/en/press/cloud-services-expansion"
+        }
+      ]
+    }
+  }
+}

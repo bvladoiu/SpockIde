@@ -13,9 +13,9 @@ data class PageObject(
      * Returns the path to the site-meta JSON file for this page.
      */
     fun getMetaPath(): String {
-        return "static/site-meta/$pageName.json"
+        return "static/$locale/site-meta/$pageName.json"
     }
-    
+
     /**
      * Returns the full URL path for this page.
      */

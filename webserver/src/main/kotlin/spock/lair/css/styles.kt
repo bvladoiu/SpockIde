@@ -22,6 +22,9 @@ fun mainStyles(): CSSBuilder {
         // Add layout styles
         addStyles(layoutStyles())
 
+        // Add section styles
+        addStyles(sectionStyles())
+
         // Add button styles
         addStyles(buttonStyles())
 
