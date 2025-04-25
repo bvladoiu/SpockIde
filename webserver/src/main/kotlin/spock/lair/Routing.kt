@@ -23,6 +23,19 @@ fun Application.configureRouting() {
         // Serve common static files
         staticFiles("/static/common", File("static/common")) {}
 
+        // Serve root static files (main.js, web.js)
+        staticFiles("/static", File("static")) {}
+
+        // Add caching headers for JS files
+        get("/static/{filename}.js") {
+            val filename = call.parameters["filename"] ?: return@get
+            val file = File("static/$filename.js")
+            if (file.exists()) {
+                call.response.header("Cache-Control", "max-age=3600") // 1 hour cache
+                call.respondFile(file)
+            }
+        }
+
         get("/") {
             // Redirect to the default locale (English) home page
             call.respondRedirect("/en/home")
@@ -150,6 +163,9 @@ fun Application.configureRouting() {
                         content("section-2", "Second Section", "This is the content of the second section.")
                     }
                     script(src = "/static/common/web.js") {
+                        attributes["defer"] = "true"
+                    }
+                    script(src = "/static/main.js") {
                         attributes["defer"] = "true"
                     }
                 }

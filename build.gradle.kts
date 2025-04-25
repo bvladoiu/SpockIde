@@ -6,6 +6,7 @@ val copyJsStaticTask = "copyJsStaticDev"
 val runWebserverTask = "runWebserver"
 val runBrowserTask = "runBrowser"
 val webJsBrowserProductionWebpackTask = ":web:jsBrowserProductionWebpack"
+val webappJsBrowserProductionWebpackTask = ":webapp:jsBrowserProductionWebpack"
 val webserverRunTask = ":webserver:run"
 val browserJvmRunTask = ":browser:jvmRun"
 
@@ -31,19 +32,31 @@ val jsStaticDevDir = layout.buildDirectory.dir("../static")
 
 tasks.register(copyJsStaticTask, DefaultTask::class) {
     group = "build"
-    description = "Builds the :web development JS bundle and copies output to Ktor's static serving directory."
-    dependsOn(webJsBrowserProductionWebpackTask)
+    description = "Builds the JS bundles and copies output to Ktor's static serving directory."
+    dependsOn(webJsBrowserProductionWebpackTask, webappJsBrowserProductionWebpackTask)
 
     doLast {
-        val jsDevBuildDir = project(":web").buildDir.resolve("kotlin-webpack/js/productionExecutable")
+        val webJsDevBuildDir = project(":web").buildDir.resolve("kotlin-webpack/js/productionExecutable")
+        val webappJsDevBuildDir = project(":webapp").buildDir.resolve("kotlin-webpack/js/productionExecutable")
         val staticDir = rootDir.resolve("static")
         staticDir.mkdirs()
+
+        // Copy web.js files
         copy {
-            from(jsDevBuildDir)
+            from(webJsDevBuildDir)
             into(staticDir)
             include("*.js")
             include("*.js.map")
         }
+
+        // Copy main.js files
+        copy {
+            from(webappJsDevBuildDir)
+            into(staticDir)
+            include("*.js")
+            include("*.js.map")
+        }
+
         println("Copied JS dev files to: ${staticDir.absolutePath}")
     }
 }

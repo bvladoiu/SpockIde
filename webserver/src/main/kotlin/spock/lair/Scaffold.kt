@@ -34,6 +34,9 @@ fun HTML.scaffold(pageObject: PageObject, block: ScaffoldContext.() -> Unit) {
         script(src = "/static/common/web.js") {
             attributes["defer"] = "true"
         }
+        script(src = "/static/main.js") {
+            attributes["defer"] = "true"
+        }
     }
 }
 
