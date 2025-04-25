@@ -38,14 +38,14 @@ fun layoutStyles(): CSSBuilder {
         }
 
         // Editor components
-        rule("[data-component=\"heroSection\"]") {
+        rule("[data-component=\"hero\"]") {
             padding(vertical = 40.px, horizontal = 20.px)
             backgroundColor = Color("#f5f5f5")
             marginBottom = 20.px
             borderRadius = 8.px
         }
 
-        rule("[data-component=\"contentSection\"]") {
+        rule("[data-component=\"content\"]") {
             padding(20.px)
             backgroundColor = Color.white
             marginBottom = 20.px

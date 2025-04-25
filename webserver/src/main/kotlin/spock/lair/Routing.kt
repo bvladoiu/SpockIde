@@ -145,9 +145,9 @@ fun Application.configureRouting() {
                 body {
                     div {
                         id = "page-content"
-                        heroSection("hero-1", "Welcome to the Page Editor")
-                        contentSection("section-1", "First Section", "This is the content of the first section.")
-                        contentSection("section-2", "Second Section", "This is the content of the second section.")
+                        hero("hero-1", "Welcome to the Page Editor")
+                        content("section-1", "First Section", "This is the content of the first section.")
+                        content("section-2", "Second Section", "This is the content of the second section.")
                     }
                     script(src = "/static/common/web.js") {
                         attributes["defer"] = "true"

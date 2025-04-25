@@ -123,7 +123,7 @@ class ScaffoldContext(val pageObject: PageObject) {
      * Create a section with the given name and content.
      */
     fun FlowContent.section(name: String, block: FlowContent.() -> Unit) {
-        div {
+        section {
             id = name
             classes = setOf("section", name)
             block()

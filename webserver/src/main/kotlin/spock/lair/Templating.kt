@@ -10,9 +10,9 @@ import kotlinx.css.*
 import kotlinx.html.*
 import spock.lair.css.*
 
-fun FlowContent.heroSection(id: String, title: String) {
-    div {
-        attributes["data-component"] = "heroSection"
+fun FlowContent.hero(id: String, title: String) {
+    section {
+        attributes["data-component"] = "hero"
         attributes["data-id"] = id
         h1 {
             attributes["data-editable"] = "true"
@@ -21,9 +21,9 @@ fun FlowContent.heroSection(id: String, title: String) {
     }
 }
 
-fun FlowContent.contentSection(id: String, title: String, initialContent: String) {
-    div {
-        attributes["data-component"] = "contentSection"
+fun FlowContent.content(id: String, title: String, initialContent: String) {
+    section {
+        attributes["data-component"] = "content"
         attributes["data-id"] = id
         h2 {
             attributes["data-editable"] = "true"
