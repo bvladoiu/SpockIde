@@ -16,7 +16,9 @@ fun HTML.scaffold(pageObject: PageObject, block: ScaffoldContext.() -> Unit) {
         title { +scaffoldContext.getPageTitle() }
         meta(name = "viewport", content = "width=device-width, initial-scale=1.0")
         meta(charset = "UTF-8")
-        // CSS is now served dynamically from the CSS DSL
+        // Critical inline styles loaded first for better performance
+        style { unsafe { +inlineStyles().toString() } }
+        // Main CSS styles loaded after inline styles
         style { unsafe { +mainStyles().toString() } }
     }
 

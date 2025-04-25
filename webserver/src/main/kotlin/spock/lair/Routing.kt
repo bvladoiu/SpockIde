@@ -137,7 +137,9 @@ fun Application.configureRouting() {
             call.respondHtml {
                 head {
                     title { +"Page Editor" }
-                    // CSS is now served dynamically from the CSS DSL
+                    // Critical inline styles loaded first for better performance
+                    style { unsafe { +inlineStyles().toString() } }
+                    // Main CSS styles loaded after inline styles
                     style { unsafe { +mainStyles().toString() } }
                 }
                 body {

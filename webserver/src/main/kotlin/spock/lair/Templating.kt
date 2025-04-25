@@ -57,7 +57,9 @@ fun Application.configureTemplating() {
         get("/html-css-dsl") {
             call.respondHtml {
                 head {
-                    // CSS is now served dynamically from the CSS DSL
+                    // Critical inline styles loaded first for better performance
+                    style { unsafe { +inlineStyles().toString() } }
+                    // Main CSS styles loaded after inline styles
                     style { unsafe { +mainStyles().toString() } }
                 }
                 body {
