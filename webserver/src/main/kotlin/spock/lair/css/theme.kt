@@ -35,16 +35,6 @@ fun themeStyles(): CSSBuilder {
             put("--color-error", "#dc3545")
             put("--color-info", "#17a2b8")
 
-            // Typography
-            put("--font-family", "Arial, sans-serif")
-            put("--font-size-base", "16px")
-            put("--font-size-small", "14px")
-            put("--font-size-large", "18px")
-            put("--font-size-h1", "48px")
-            put("--font-size-h2", "32px")
-            put("--font-size-h3", "24px")
-            put("--font-size-h4", "20px")
-
             // Spacing
             put("--spacing-xs", "5px")
             put("--spacing-sm", "10px")
