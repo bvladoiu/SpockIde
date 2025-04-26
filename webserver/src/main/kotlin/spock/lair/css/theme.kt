@@ -65,10 +65,8 @@ fun themeStyles(): CSSBuilder {
             put("--shadow-md", "0 4px 10px rgba(0, 0, 0, var(--shadow-intensity))")
             put("--shadow-lg", "0 10px 20px rgba(0, 0, 0, calc(var(--shadow-intensity) * 1.5))")
 
-            // Transitions
-            put("--transition-fast", "0.2s")
-            put("--transition-normal", "0.3s")
-            put("--transition-slow", "0.5s")
+            // Transition
+            put("--transition", "0.4s")
 
             // Layout
             put("--container-width", "clamp(320px, 90vw, 1200px)")

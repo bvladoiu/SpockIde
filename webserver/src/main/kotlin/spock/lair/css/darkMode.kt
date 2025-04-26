@@ -58,7 +58,7 @@ fun darkModeStyles(): CSSBuilder {
             put("border-radius", "var(--border-radius-sm)")
             backgroundColor = Color("var(--color-bg-light)")
             color = Color("var(--color)")
-            put("transition", "all var(--transition-fast) ease")
+            put("transition", "all var(--transition) ease")
 
             hover {
                 backgroundColor = Color("var(--color-primary-light)")
