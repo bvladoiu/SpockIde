@@ -1,0 +1,12 @@
+{
+  "title": "Themenwechsler",
+  "labels": {
+    "toggle": "Dunkelmodus umschalten",
+    "light": "Helles Thema",
+    "dark": "Dunkles Thema"
+  },
+  "icons": {
+    "light": "☀️",
+    "dark": "🌙"
+  }
+}

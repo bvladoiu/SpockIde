@@ -4,10 +4,28 @@ package spock.lair
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.w3c.dom.events.KeyboardEvent
+import spock.lair.components.registerThemeSwitcher
+import spock.lair.components.applySavedTheme
 
+/**
+ * Main entry point for the web module.
+ * This function initializes the application when the page loads.
+ */
 fun main() {
     window.onload = {
+        // Register component initializers
+        registerThemeSwitcher()
+
+        // Apply saved theme before initializing components
+        applySavedTheme()
+
+        // Initialize all components based on data-component attributes
+        initComponents()
+
+        // Set up editor functionality
         setupEditor()
+
+        console.log("Web module initialized")
     }
 }
 

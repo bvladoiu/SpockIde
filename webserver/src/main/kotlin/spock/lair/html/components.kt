@@ -40,9 +40,6 @@ fun FlowContent.element(
 }
 
 
-fun FlowContent.themeSwitch() {
-    div { +"Todo:themeSwitch" }
-}
 
 fun FlowContent.langSelect() {
     div { +"Todo:langSelect" }

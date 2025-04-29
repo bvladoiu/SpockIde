@@ -43,4 +43,3 @@ rootProject.name = "lair"
 include(":webserver")
 include(":web")
 include(":browser")
-include(":webapp")

@@ -94,7 +94,7 @@ fun element(tagName: String, init: ElementBuilder.() -> Unit): Element {
 
 // Predefined CSS styles
 fun CssBuilder.editableElement() {
-    outline("1px dashed red")
+    outline("1px dashed var(--color-error)")
     userSelect("text !important")
     pointerEvents("auto !important")
     minHeight("1em")
@@ -112,18 +112,18 @@ fun CssBuilder.iconContainer() {
     pointerEvents("auto")
 }
 
-fun CssBuilder.controlIcon(backgroundColor: String = "blue") {
+fun CssBuilder.controlIcon(backgroundColor: String = "var(--color-primary)") {
     this.backgroundColor(backgroundColor)
-    color("white")
+    color("var(--color-bg-light)")
     width("16px")
     height("16px")
-    borderRadius("50%")
+    borderRadius("var(--border-radius-circle)")
     display("flex")
     alignItems("center")
     justifyContent("center")
     cursor("pointer")
     fontWeight("bold")
-    fontSize("14px")
+    fontSize("var(--font-size-small)")
     userSelect("none")
 }
 
@@ -132,10 +132,10 @@ fun CssBuilder.modal() {
     top("50%")
     right("50%")
     transform("translate(50%, -50%)")
-    backgroundColor("white")
-    borderRadius("5px")
-    padding("20px")
-    boxShadow("0 4px 8px rgba(0, 0, 0, 0.2)")
+    backgroundColor("var(--color-modal-bg)")
+    borderRadius("var(--border-radius-md)")
+    padding("var(--spacing-md)")
+    boxShadow("var(--shadow-md)")
     zIndex("10000")
     maxWidth("600px")
     width("90%")
@@ -148,12 +148,12 @@ fun CssBuilder.modalHeader() {
     justifyContent("space-between")
     alignItems("center")
     marginBottom("15px")
-    borderBottom("1px solid #eee")
+    borderBottom("1px solid var(--color-border-light)")
     paddingBottom("10px")
 }
 
 fun CssBuilder.modalTitle() {
-    fontSize("18px")
+    fontSize("var(--font-size-large)")
     fontWeight("bold")
     margin("0")
 }
@@ -164,7 +164,7 @@ fun CssBuilder.closeButton() {
     fontWeight("bold")
     border("none")
     backgroundColor("transparent")
-    color("#333")
+    color("var(--color-text)")
 }
 
 fun CssBuilder.modalContent() {
@@ -175,13 +175,13 @@ fun CssBuilder.shortcutItem() {
     display("flex")
     justifyContent("space-between")
     padding("8px 0")
-    borderBottom("1px solid #eee")
+    borderBottom("1px solid var(--color-border-light)")
 }
 
 fun CssBuilder.shortcutKey() {
-    backgroundColor("#f5f5f5")
+    backgroundColor("var(--color-code-bg)")
     padding("2px 6px")
-    borderRadius("3px")
+    borderRadius("var(--border-radius-sm)")
     fontFamily("monospace")
     fontWeight("bold")
 }
@@ -192,6 +192,6 @@ fun CssBuilder.overlay() {
     left("0")
     right("0")
     bottom("0")
-    backgroundColor("rgba(0, 0, 0, 0.5)")
+    backgroundColor("var(--color-overlay-bg)")
     zIndex("9999")
 }

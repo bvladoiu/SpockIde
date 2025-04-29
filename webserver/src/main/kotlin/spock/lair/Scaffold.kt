@@ -8,18 +8,36 @@ import java.io.File
 /**
  * DSL for building pages using a scaffold approach.
  * This function takes a PageObject and a block of HTML content to build a page.
+ * 
+ * @param pageObject The page object containing page metadata
+ * @param isDevelopment Whether the application is running in development mode
+ * @param block The block of HTML content to build the page
  */
-fun HTML.scaffold(pageObject: PageObject, block: ScaffoldContext.() -> Unit) {
+fun HTML.scaffold(pageObject: PageObject, isDevelopment: Boolean = false, block: ScaffoldContext.() -> Unit) {
     val scaffoldContext = ScaffoldContext(pageObject)
 
     head {
         title { +scaffoldContext.getPageTitle() }
         meta(name = "viewport", content = "width=device-width, initial-scale=1.0")
         meta(charset = "UTF-8")
-        // Critical inline styles loaded first for better performance
-        style { unsafe { +inlineStyles().toString() } }
-        // Main CSS styles loaded after inline styles
-        style { unsafe { +mainStyles().toString() } }
+
+        if (isDevelopment) {
+            // In development mode, load individual CSS files for easier debugging
+            link(rel = "stylesheet", href = "/static/css/dev/theme.css")
+            link(rel = "stylesheet", href = "/static/css/dev/typography.css")
+            link(rel = "stylesheet", href = "/static/css/dev/layout.css")
+            link(rel = "stylesheet", href = "/static/css/dev/section.css")
+            link(rel = "stylesheet", href = "/static/css/dev/button.css")
+            link(rel = "stylesheet", href = "/static/css/dev/component.css")
+            link(rel = "stylesheet", href = "/static/css/dev/article.css")
+            link(rel = "stylesheet", href = "/static/css/dev/lang-select.css")
+            link(rel = "stylesheet", href = "/static/css/dev/editor.css")
+            link(rel = "stylesheet", href = "/static/css/dev/dark-mode.css")
+        } else {
+            // In production mode, include critical inline styles and load the aggregated CSS
+            style { unsafe { +inlineStyles().toString() } }
+            link(rel = "stylesheet", href = "/static/css/app.css")
+        }
     }
 
     body {

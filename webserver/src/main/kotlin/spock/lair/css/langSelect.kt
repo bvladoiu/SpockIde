@@ -22,11 +22,11 @@ fun langSelectStyles(): CSSBuilder {
             alignItems = Align.center
             cursor = Cursor.pointer
             padding(vertical = 5.px, horizontal = 10.px)
-            borderRadius = 4.px
+            borderRadius = LinearDimension("var(--border-radius-sm)")
             transition("background-color", 0.2.s)
 
             hover {
-                put("background-color", "#f0f0f0")
+                backgroundColor = Color("var(--color-hover)")
             }
         }
 
@@ -59,9 +59,9 @@ fun langSelectStyles(): CSSBuilder {
             position = Position.absolute
             top = 100.pct
             right = 0.px
-            put("background-color", "#ffffff")
-            borderRadius = 4.px
-            put("box-shadow", "0 4px 10px rgba(0, 0, 0, 0.1)")
+            backgroundColor = Color("var(--color-background-light)")
+            borderRadius = LinearDimension("var(--border-radius-sm)")
+            put("box-shadow", "var(--shadow-md)")
             minWidth = 120.px
             zIndex = 100
             overflow = Overflow.hidden
@@ -85,12 +85,12 @@ fun langSelectStyles(): CSSBuilder {
             transition("background-color", 0.2.s)
 
             hover {
-                put("background-color", "#f0f0f0")
+                backgroundColor = Color("var(--color-hover)")
             }
         }
 
         rule(".lang-select-option.active") {
-            put("background-color", "#e6f7ff")
+            backgroundColor = Color("var(--color-active)")
             fontWeight = FontWeight.bold
         }
     }

@@ -10,6 +10,7 @@ import kotlinx.html.main
 import kotlinx.html.nav
 import kotlinx.html.section
 import kotlinx.html.ul
+import spock.lair.components.themeSwitch
 
 
 fun HTML.scaffold() {

@@ -18,7 +18,7 @@ fun componentStyles(): CSSBuilder {
             justifyContent = JustifyContent.center
             padding(vertical = 80.px, horizontal = 20.px)
             textAlign = TextAlign.center
-            backgroundColor = Color("#f0f0f0")
+            backgroundColor = Color("var(--color-background)")
             borderRadius = LinearDimension("var(--border-radius-md)")
             overflow = Overflow.hidden
         }
@@ -62,12 +62,12 @@ fun componentStyles(): CSSBuilder {
             padding(30.px)
             backgroundColor = Color("var(--color-background-light)")
             borderRadius = LinearDimension("var(--border-radius-md)")
-            put("box-shadow", "0 4px 10px rgba(0, 0, 0, 0.1)")
+            put("box-shadow", "var(--shadow-md)")
             transition("all", 0.3.s)
 
             hover {
                 transform { translateY((-5).px) }
-                put("box-shadow", "0 10px 20px rgba(0, 0, 0, 0.15)")
+                put("box-shadow", "var(--shadow-lg)")
             }
         }
 
@@ -98,7 +98,7 @@ fun componentStyles(): CSSBuilder {
             backgroundColor = Color("var(--color-background-light)")
             borderRadius = LinearDimension("var(--border-radius-md)")
             overflow = Overflow.hidden
-            put("box-shadow", "0 4px 10px rgba(0, 0, 0, 0.1)")
+            put("box-shadow", "var(--shadow-md)")
         }
 
         rule(".featured-post-image") {
@@ -136,12 +136,12 @@ fun componentStyles(): CSSBuilder {
             backgroundColor = Color("var(--color-background-light)")
             borderRadius = LinearDimension("var(--border-radius-md)")
             overflow = Overflow.hidden
-            put("box-shadow", "0 4px 10px rgba(0, 0, 0, 0.1)")
+            put("box-shadow", "var(--shadow-md)")
             transition("all", 0.3.s)
 
             hover {
                 transform { translateY((-5).px) }
-                put("box-shadow", "0 10px 20px rgba(0, 0, 0, 0.15)")
+                put("box-shadow", "var(--shadow-lg)")
             }
         }
 
@@ -181,12 +181,12 @@ fun componentStyles(): CSSBuilder {
             backgroundColor = Color("var(--color-background-light)")
             borderRadius = LinearDimension("var(--border-radius-md)")
             overflow = Overflow.hidden
-            put("box-shadow", "0 4px 10px rgba(0, 0, 0, 0.1)")
+            put("box-shadow", "var(--shadow-md)")
             transition("all", 0.3.s)
 
             hover {
                 transform { translateY((-5).px) }
-                put("box-shadow", "0 10px 20px rgba(0, 0, 0, 0.15)")
+                put("box-shadow", "var(--shadow-lg)")
             }
         }
 
@@ -227,13 +227,13 @@ fun componentStyles(): CSSBuilder {
             justifyContent = JustifyContent.center
             width = 40.px
             height = 40.px
-            backgroundColor = Color("#f0f0f0")
-            borderRadius = 50.pct
+            backgroundColor = Color("var(--color-hover)")
+            borderRadius = LinearDimension("var(--border-radius-circle)")
             transition("all", 0.3.s)
 
             hover {
                 backgroundColor = Color("var(--color-primary)")
-                color = Color.white
+                color = Color("var(--color-bg-light)")
             }
         }
 

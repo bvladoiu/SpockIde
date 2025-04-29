@@ -16,5 +16,6 @@ fun main() {
 fun Application.module() {
     configureSockets()
     configureTemplating()
+    configureCssRoutes()
     configureRouting()
 }

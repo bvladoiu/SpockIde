@@ -13,10 +13,10 @@ fun articleStyles(): CSSBuilder {
         rule(".article") {
             maxWidth = 800.px
             margin(LinearDimension.auto)
-            padding(20.px)
-            put("background-color", "#ffffff")
-            borderRadius = 8.px
-            put("box-shadow", "0 4px 10px rgba(0, 0, 0, 0.1)")
+            padding(LinearDimension("var(--spacing-md)"))
+            backgroundColor = Color("var(--color-background-light)")
+            borderRadius = LinearDimension("var(--border-radius-md)")
+            put("box-shadow", "var(--shadow-md)")
         }
 
         // Article header
@@ -25,17 +25,17 @@ fun articleStyles(): CSSBuilder {
         }
 
         rule(".article-title") {
-            fontSize = 36.px
+            fontSize = LinearDimension("var(--font-size-h1)")
             marginBottom = 10.px
-            put("color", "#333333")
+            color = Color("var(--color-text)")
         }
 
         rule(".article-meta") {
             display = Display.flex
             alignItems = Align.center
             marginBottom = 20.px
-            put("color", "#666666")
-            fontSize = 14.px
+            color = Color("var(--color-text-light)")
+            fontSize = LinearDimension("var(--font-size-small)")
         }
 
         rule(".article-date") {
@@ -76,10 +76,10 @@ fun articleStyles(): CSSBuilder {
             }
 
             children("blockquote") {
-                borderLeft = "4px solid #0066cc"
+                borderLeft = "4px solid var(--color-blockquote)"
                 paddingLeft = 20.px
                 fontStyle = FontStyle.italic
-                put("color", "#555555")
+                color = Color("var(--color-text-light)")
                 margin(vertical = 20.px, horizontal = 0.px)
             }
 
@@ -101,22 +101,22 @@ fun articleStyles(): CSSBuilder {
 
             children("code") {
                 fontFamily = "monospace"
-                put("background-color", "#f5f5f5")
+                backgroundColor = Color("var(--color-code-bg)")
                 padding(vertical = 2.px, horizontal = 5.px)
-                borderRadius = 3.px
-                fontSize = 14.px
+                borderRadius = LinearDimension("var(--border-radius-sm)")
+                fontSize = LinearDimension("var(--font-size-small)")
             }
 
             children("pre") {
-                put("background-color", "#f5f5f5")
+                backgroundColor = Color("var(--color-code-bg)")
                 padding(15.px)
-                borderRadius = 4.px
+                borderRadius = LinearDimension("var(--border-radius-sm)")
                 overflow = Overflow.auto
                 marginBottom = 20.px
 
                 children("code") {
                     padding(0.px)
-                    put("background-color", "transparent")
+                    backgroundColor = Color("transparent")
                 }
             }
         }
@@ -132,22 +132,23 @@ fun articleStyles(): CSSBuilder {
         rule(".article-tag") {
             display = Display.inlineBlock
             padding(vertical = 5.px, horizontal = 10.px)
-            backgroundColor = Color("#f0f0f0")
-            borderRadius = 20.px
+            backgroundColor = Color("var(--color-tag-bg)")
+            borderRadius = LinearDimension("var(--border-radius-lg)")
             marginRight = 10.px
             marginBottom = 10.px
-            fontSize = 14.px
-            color = Color("#666")
+            fontSize = LinearDimension("var(--font-size-small)")
+            color = Color("var(--color-text-light)")
+            transition("all", 0.3.s)
 
             hover {
-                backgroundColor = Color("#0066cc")
-                color = Color.white
+                backgroundColor = Color("var(--color-primary)")
+                color = Color("var(--color-bg-light)")
             }
         }
 
         rule(".related-articles") {
             marginTop = 50.px
-            borderTop = "1px solid #eee"
+            borderTop = "1px solid var(--color-border-light)"
             paddingTop = 30.px
         }
 
@@ -163,17 +164,17 @@ fun articleStyles(): CSSBuilder {
         }
 
         rule(".related-article") {
-            put("background-color", "#ffffff")
-            borderRadius = 8.px
+            backgroundColor = Color("var(--color-background-light)")
+            borderRadius = LinearDimension("var(--border-radius-md)")
             overflow = Overflow.hidden
-            put("box-shadow", "0 4px 10px rgba(0, 0, 0, 0.1)")
+            put("box-shadow", "var(--shadow-md)")
             transition("all", 0.3.s)
 
             hover {
                 transform {
                     translateY((-5).px)
                 }
-                put("box-shadow", "0 10px 20px rgba(0, 0, 0, 0.15)")
+                put("box-shadow", "var(--shadow-lg)")
             }
         }
 
@@ -193,8 +194,8 @@ fun articleStyles(): CSSBuilder {
         }
 
         rule(".related-article-date") {
-            fontSize = 14.px
-            color = Color("#666")
+            fontSize = LinearDimension("var(--font-size-small)")
+            color = Color("var(--color-text-light)")
         }
     }
 }

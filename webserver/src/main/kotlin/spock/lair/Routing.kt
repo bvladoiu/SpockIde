@@ -47,9 +47,10 @@ fun Application.configureRouting() {
             val pageName = call.parameters["pageName"] ?: "home"
 
             val pageObject = PageObject(locale, pageName)
+            val isDevelopment = application.environment.config.propertyOrNull("ktor.development")?.getString()?.toBoolean() ?: false
 
             call.respondHtml {
-                scaffold(pageObject) {
+                scaffold(pageObject, isDevelopment) {
                     when (pageName) {
                         "home" -> {
                             hero()

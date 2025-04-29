@@ -33,6 +33,24 @@ fun themeStyles(): CSSBuilder {
             put("--color-error", "#dc3545")
             put("--color-info", "#17a2b8")
 
+            // Text and background colors (for components)
+            put("--color-text", "var(--color)")
+            put("--color-text-light", "var(--color-light)")
+            put("--color-background", "var(--color-bg)")
+            put("--color-background-light", "var(--color-bg-light)")
+
+            // UI element colors
+            put("--color-hover", "#f0f0f0")
+            put("--color-active", "#e6f7ff")
+            put("--color-code-bg", "#f5f5f5")
+            put("--color-tag-bg", "#f0f0f0")
+            put("--color-overlay-bg", "rgba(0, 0, 0, 0.5)")
+            put("--color-modal-bg", "var(--color-bg-light)")
+
+            // Border colors
+            put("--color-border-light", "#eee")
+            put("--color-blockquote", "var(--color-primary)")
+
             // Typography
             put("--font-family", "Arial, sans-serif")
             put("--font-size-base", "16px")
@@ -82,14 +100,52 @@ fun themeStyles(): CSSBuilder {
 
         // Dark theme (activated by adding .dark class to body)
         rule("body.dark") {
+            // Core color scheme variables
             put("--color", "#ffffff")
             put("--color-bg", "#222222")
             put("--color-light", "#cccccc")
             put("--color-bg-light", "#333333")
             put("--color-border", "#444444")
 
+            // UI element colors
+            put("--color-hover", "#333333")
+            put("--color-active", "#004499")
+            put("--color-code-bg", "#333333")
+            put("--color-tag-bg", "#333333")
+            put("--color-overlay-bg", "rgba(0, 0, 0, 0.7)")
+            put("--color-modal-bg", "var(--color-bg-light)")
+
+            // Border colors
+            put("--color-border-light", "#444444")
+
             // Adjust shadow intensity for dark mode
             put("--shadow-intensity", "clamp(0.3, calc(0.3 + (0.5 - 0.3) * ((100vw - 600px) / (1600 - 600))), 0.5)")
+        }
+
+        // System preference based theme (prefers-color-scheme: dark)
+        media("(prefers-color-scheme: dark)") {
+            rule("body:not(.light):not(.dark)") {
+                // Core color scheme variables
+                put("--color", "#ffffff")
+                put("--color-bg", "#222222")
+                put("--color-light", "#cccccc")
+                put("--color-bg-light", "#333333")
+                put("--color-border", "#444444")
+
+                // UI element colors
+                put("--color-hover", "#333333")
+                put("--color-active", "#004499")
+                put("--color-code-bg", "#333333")
+                put("--color-tag-bg", "#333333")
+                put("--color-overlay-bg", "rgba(0, 0, 0, 0.7)")
+                put("--color-modal-bg", "var(--color-bg-light)")
+
+                // Border colors
+                put("--color-border-light", "#444444")
+
+                // Adjust shadow intensity for dark mode
+                put("--shadow-intensity", "clamp(0.3, calc(0.3 + (0.5 - 0.3) * ((100vw - 600px) / (1600 - 600))), 0.5)")
+            }
         }
     }
 }
