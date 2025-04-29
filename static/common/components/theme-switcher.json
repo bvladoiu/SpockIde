@@ -1,0 +1,12 @@
+{
+  "title": "theme_switcher_title_id",
+  "labels": {
+    "toggle": "toggle_dark_mode_id",
+    "light": "light_theme_id",
+    "dark": "dark_theme_id"
+  },
+  "icons": {
+    "light": "☀️",
+    "dark": "🌙"
+  }
+}

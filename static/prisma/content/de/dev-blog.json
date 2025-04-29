@@ -1,0 +1,19 @@
+{
+  "dev_blog_title_id": "Entwickler-Blog",
+  "dev_blog_description_id": "Technische Artikel und Einblicke von unserem Entwicklungsteam",
+  "dev_blog_post1_title_id": "Entwicklung mit Kotlin Multiplatform",
+  "dev_blog_post1_summary_id": "Wie wir Kotlin Multiplatform nutzen, um Code plattformübergreifend zu teilen.",
+  "dev_blog_post1_content_id": "In diesem Artikel untersuchen wir, wie wir Kotlin Multiplatform nutzen, um Code zwischen unseren Android-, iOS- und Web-Anwendungen zu teilen. Wir diskutieren die Vorteile dieses Ansatzes, einschließlich reduzierter Code-Duplizierung, verbesserter Wartbarkeit und schnellerer Entwicklungszyklen. Wir teilen auch einige der Herausforderungen, mit denen wir konfrontiert waren, und wie wir sie überwunden haben.",
+  "dev_blog_post2_title_id": "Skalierbare APIs mit Ktor erstellen",
+  "dev_blog_post2_summary_id": "Unser Ansatz zur Erstellung skalierbarer und wartbarer APIs mit Ktor.",
+  "dev_blog_post2_content_id": "Ktor ist ein leistungsstarkes Framework für die Erstellung asynchroner Server und Clients in Kotlin. In diesem Beitrag teilen wir unsere Erfahrungen mit der Verwendung von Ktor zur Erstellung skalierbarer und wartbarer APIs. Wir behandeln Themen wie Routing, Authentifizierung, Content Negotiation und Testing. Wir diskutieren auch, wie wir unsere Ktor-Anwendungen strukturiert haben, um sie leicht wartbar und erweiterbar zu machen.",
+  "dev_blog_post3_title_id": "UI-Entwicklung mit Compose Multiplatform",
+  "dev_blog_post3_summary_id": "Wie wir Compose Multiplatform für die plattformübergreifende UI-Entwicklung einsetzen.",
+  "dev_blog_post3_content_id": "Compose Multiplatform ist ein aufregendes neues UI-Toolkit, das Entwicklern ermöglicht, native UIs für Android, iOS, Desktop und Web mit einer einzigen Codebasis zu erstellen. In diesem Artikel teilen wir unsere Erfahrungen bei der Einführung von Compose Multiplatform für unsere Projekte. Wir diskutieren die Vorteile dieses Ansatzes, einschließlich verbesserter Entwicklerproduktivität und konsistenter UI über Plattformen hinweg. Wir teilen auch einige Tipps und Tricks, die wir auf dem Weg gelernt haben.",
+  "dev_blog_post4_title_id": "Asynchrone Programmierung mit Kotlin Coroutines",
+  "dev_blog_post4_summary_id": "Wie wir Kotlin Coroutines für asynchrone Programmierung verwenden.",
+  "dev_blog_post4_content_id": "Kotlin Coroutines bieten eine leistungsstarke Möglichkeit, asynchronen, nicht-blockierenden Code in einem sequentiellen Stil zu schreiben. In diesem Beitrag teilen wir unsere Erfahrungen mit der Verwendung von Kotlin Coroutines in unseren Anwendungen. Wir behandeln Themen wie strukturierte Nebenläufigkeit, Flow und Fehlerbehandlung. Wir diskutieren auch, wie wir Coroutines mit anderen Bibliotheken und Frameworks in unserem Tech-Stack integriert haben.",
+  "dev_blog_post5_title_id": "DSLs mit Kotlin erstellen",
+  "dev_blog_post5_summary_id": "Wie wir Kotlins DSL-Fähigkeiten nutzen, um ausdrucksstarke und typsichere APIs zu erstellen.",
+  "dev_blog_post5_content_id": "Kotlins Unterstützung für den Aufbau von Domain-Specific Languages (DSLs) ermöglicht es Entwicklern, ausdrucksstarke und typsichere APIs zu erstellen. In diesem Artikel teilen wir unsere Erfahrungen beim Aufbau von DSLs mit Kotlin. Wir diskutieren die Sprachfunktionen, die dies ermöglichen, wie Erweiterungsfunktionen, Lambda-Ausdrücke mit Empfängern und Infix-Funktionen. Wir teilen auch einige Beispiele für DSLs, die wir für unsere Projekte erstellt haben."
+}

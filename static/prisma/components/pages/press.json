@@ -1,0 +1,51 @@
+{
+  "title": "press_title_id",
+  "description": "press_description_id",
+  "posts": [
+    {
+      "id": "new-website-launch",
+      "title": "press_post1_title_id",
+      "date": "2023-10-15",
+      "summary": "press_post1_summary_id",
+      "content": "press_post1_content_id",
+      "image": "/static/images/press/website-launch.jpg",
+      "featured": true
+    },
+    {
+      "id": "mobile-app-update",
+      "title": "press_post2_title_id",
+      "date": "2023-09-28",
+      "summary": "press_post2_summary_id",
+      "content": "press_post2_content_id",
+      "image": "/static/images/press/mobile-app.jpg",
+      "featured": false
+    },
+    {
+      "id": "cloud-services-expansion",
+      "title": "press_post3_title_id",
+      "date": "2023-09-10",
+      "summary": "press_post3_summary_id",
+      "content": "press_post3_content_id",
+      "image": "/static/images/press/cloud-services.jpg",
+      "featured": false
+    },
+    {
+      "id": "new-partnership",
+      "title": "press_post4_title_id",
+      "date": "2023-08-22",
+      "summary": "press_post4_summary_id",
+      "content": "press_post4_content_id",
+      "image": "/static/images/press/partnership.jpg",
+      "featured": false
+    },
+    {
+      "id": "industry-award",
+      "title": "press_post5_title_id",
+      "date": "2023-07-15",
+      "summary": "press_post5_summary_id",
+      "content": "press_post5_content_id",
+      "image": "/static/images/press/award.jpg",
+      "featured": false
+    }
+  ]
+}

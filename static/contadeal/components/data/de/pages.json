@@ -1,0 +1,27 @@
+[
+  {
+    "label": "Startseite",
+    "link": "/home",
+    "icon": "cottage_rounded"
+  },
+  {
+    "label": "Presse",
+    "link": "/press",
+    "icon": "feed"
+  },
+  {
+    "label": "Entwickler-Blog",
+    "link": "/dev-blog",
+    "icon": "terminal"
+  },
+  {
+    "label": "Über uns",
+    "link": "/about",
+    "icon": "neurology"
+  },
+  {
+    "label": "Kontakt",
+    "link": "/contact",
+    "icon": "contact_page"
+  }
+]

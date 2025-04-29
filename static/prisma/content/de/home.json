@@ -1,0 +1,20 @@
+{
+  "home_page_title_id": "Startseite",
+  "home_hero_title_id": "Willkommen auf unserer Website",
+  "home_hero_subtitle_id": "Wir bieten innovative Lösungen für Ihr Unternehmen",
+  "home_hero_cta_text_id": "Mehr erfahren",
+  "home_competences_title_id": "Unsere Kompetenzen",
+  "home_competences_web_title_id": "Webentwicklung",
+  "home_competences_web_desc_id": "Wir erstellen moderne, responsive Websites mit den neuesten Technologien.",
+  "home_competences_mobile_title_id": "Mobile Apps",
+  "home_competences_mobile_desc_id": "Native und plattformübergreifende mobile Anwendungen für iOS und Android.",
+  "home_competences_cloud_title_id": "Cloud-Lösungen",
+  "home_competences_cloud_desc_id": "Skalierbare Cloud-Infrastruktur und -Dienste für Ihr Unternehmen.",
+  "home_latest_title_id": "Neueste Nachrichten",
+  "home_latest_post1_title_id": "Neue Website-Launch",
+  "home_latest_post1_summary_id": "Wir freuen uns, den Start unserer neuen Website bekannt zu geben.",
+  "home_latest_post2_title_id": "Mobile App Update",
+  "home_latest_post2_summary_id": "Unsere mobile App wurde mit neuen Funktionen aktualisiert.",
+  "home_latest_post3_title_id": "Erweiterung der Cloud-Dienste",
+  "home_latest_post3_summary_id": "Wir erweitern unsere Cloud-Dienste um neue Regionen."
+}
