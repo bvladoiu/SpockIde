@@ -10,8 +10,23 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.css.*
 import kotlinx.html.*
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import spock.lair.css.*
+import spock.lair.db.Tenant
+import spock.lair.db.TenantDatabaseManager
 import java.io.File
+
+@Serializable
+data class Competence(
+    val id: Int,
+    val competenceId: String,
+    val indexOrder: Int,
+    val title: String,
+    val icon: String,
+    val description: String
+)
 
 fun Application.configureRouting() {
     routing {

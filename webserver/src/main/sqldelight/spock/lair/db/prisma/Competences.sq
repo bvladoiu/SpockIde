@@ -1,0 +1,24 @@
+CREATE TABLE prisma_competences (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    competence_id TEXT NOT NULL UNIQUE,
+    index_order INTEGER NOT NULL
+);
+
+-- Queries
+selectAll:
+SELECT * FROM prisma_competences ORDER BY index_order;
+
+selectById:
+SELECT * FROM prisma_competences WHERE id = ?;
+
+selectByCompetenceId:
+SELECT * FROM prisma_competences WHERE competence_id = ?;
+
+insert:
+INSERT INTO prisma_competences (competence_id, index_order) VALUES (?, ?);
+
+update:
+UPDATE prisma_competences SET competence_id = ?, index_order = ? WHERE id = ?;
+
+delete:
+DELETE FROM prisma_competences WHERE id = ?;

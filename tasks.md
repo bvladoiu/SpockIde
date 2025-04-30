@@ -1,5 +1,14 @@
 # Tasks
 
+## Renamed Products.sq to Competences.sq - 06/01/2025
+Renamed Products.sq to Competences.sq to better reflect its purpose of storing competence entities instead of products. The schema remains the same with id, competence_id, and index_order fields.
+
+## Updated SQLDelight configuration - 05/30/2025
+Updated SQLDelight configuration to align with the multitenant database architecture. Created separate database configurations for each tenant (common, contadeal, prisma) and added initial schema files with table definitions and queries.
+
+## Implemented multitenant database - 05/30/2025
+Created a multitenant database framework that supports tenant-specific databases (contadeal.db, prisma.db) and a common database (common.db). Implemented Android-like onCreate and onUpgrade methods with a switch-based migration approach. Added DSL-style database operations for easy access.
+
 ## Cleaned up common.json - 04/29/2025
 Removed unused labels from common.json files in both language directories, keeping only theme-switcher related labels. This ensures a cleaner and more focused translation structure.
 
