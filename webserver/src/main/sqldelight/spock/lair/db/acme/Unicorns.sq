@@ -2,7 +2,8 @@ CREATE TABLE acme_unicorns (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
     description TEXT NOT NULL,
-    index_order INTEGER NOT NULL
+    index_order INTEGER NOT NULL,
+    jsonPath TEXT
 );
 
 -- Queries
@@ -15,11 +16,20 @@ SELECT * FROM acme_unicorns WHERE id = ?;
 selectByTitle:
 SELECT * FROM acme_unicorns WHERE title = ?;
 
+selectWithPagination:
+SELECT * FROM acme_unicorns ORDER BY index_order LIMIT ? OFFSET ?;
+
+countAll:
+SELECT COUNT(*) FROM acme_unicorns;
+
 insert:
-INSERT INTO acme_unicorns (title, description, index_order) VALUES (?, ?, ?);
+INSERT INTO acme_unicorns (title, description, index_order, jsonPath) VALUES (?, ?, ?, ?);
 
 update:
-UPDATE acme_unicorns SET title = ?, description = ?, index_order = ? WHERE id = ?;
+UPDATE acme_unicorns SET title = ?, description = ?, index_order = ?, jsonPath = ? WHERE id = ?;
 
 delete:
 DELETE FROM acme_unicorns WHERE id = ?;
+
+lastInsertRowId:
+SELECT last_insert_rowid();

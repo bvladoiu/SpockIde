@@ -11,39 +11,52 @@ object Unicorns {
      * Create a new unicorn in the database.
      */
     fun create(driver: SqlDriver, unicorn: Unicorn): Long {
-        val query = "INSERT INTO acme_unicorns (title, description, index_order) VALUES ('${unicorn.title}', '${unicorn.description}', ${unicorn.index_order})"
-        driver.execute(null, query, 0)
+        val database = AcmeDatabase(driver)
 
-        // For simplicity, we'll return a dummy ID
-        // In a real implementation, we would get the last inserted ID
-        return 1L
+        // Insert the unicorn
+        database.unicornsQueries.insert(
+            title = unicorn.title,
+            description = unicorn.description,
+            index_order = unicorn.index_order.toLong(),
+            jsonPath = unicorn.jsonPath
+        )
+
+        // Get the last inserted ID
+        return database.unicornsQueries.lastInsertRowId().executeAsOne()
     }
 
     /**
      * Read all unicorns from the database.
      */
     fun read(driver: SqlDriver): List<Unicorn> {
-        // For simplicity, we'll return a list of dummy unicorns
-        // In a real implementation, we would query the database and parse the results
-        return listOf(
-            Unicorn(1, "Rainbow Unicorn", "A colorful unicorn with a rainbow mane", index_order = 1),
-            Unicorn(2, "Silver Unicorn", "A majestic unicorn with a silver coat", index_order = 2),
-            Unicorn(3, "Golden Unicorn", "A rare unicorn with a golden horn", index_order = 3)
-        )
+        val database = AcmeDatabase(driver)
+
+        // Get all unicorns
+        return database.unicornsQueries.selectAll().executeAsList().map { dbUnicorn ->
+            Unicorn(
+                id = dbUnicorn.id.toInt(),
+                title = dbUnicorn.title,
+                description = dbUnicorn.description,
+                index_order = dbUnicorn.index_order.toInt()
+            )
+        }
     }
 
     /**
      * Read a unicorn by ID from the database.
      */
     fun read(driver: SqlDriver, id: Int): Unicorn? {
-        // For simplicity, we'll return a dummy unicorn
-        // In a real implementation, we would query the database and parse the results
-        return when (id) {
-            1 -> Unicorn(1, "Rainbow Unicorn", "A colorful unicorn with a rainbow mane", index_order = 1)
-            2 -> Unicorn(2, "Silver Unicorn", "A majestic unicorn with a silver coat", index_order = 2)
-            3 -> Unicorn(3, "Golden Unicorn", "A rare unicorn with a golden horn", index_order = 3)
-            else -> null
-        }
+        val database = AcmeDatabase(driver)
+
+        // Get unicorn by ID
+        val dbUnicorn = database.unicornsQueries.selectById(id.toLong()).executeAsOneOrNull() ?: return null
+
+        return Unicorn(
+            id = dbUnicorn.id.toInt(),
+            title = dbUnicorn.title,
+            description = dbUnicorn.description,
+            index_order = dbUnicorn.index_order.toInt()
+        )
     }
 
     /**
@@ -52,11 +65,21 @@ object Unicorns {
     fun update(driver: SqlDriver, unicorn: Unicorn): Boolean {
         if (unicorn.id == null) return false
 
-        val query = "UPDATE acme_unicorns SET title = '${unicorn.title}', description = '${unicorn.description}', index_order = ${unicorn.index_order} WHERE id = ${unicorn.id}"
-        driver.execute(null, query, 0)
+        val database = AcmeDatabase(driver)
 
-        // For simplicity, we'll assume the update was successful
-        // In a real implementation, we would check if any rows were affected
+        // Check if the unicorn exists
+        val exists = database.unicornsQueries.selectById(unicorn.id.toLong()).executeAsOneOrNull() != null
+        if (!exists) return false
+
+        // Update the unicorn
+        database.unicornsQueries.update(
+            title = unicorn.title,
+            description = unicorn.description,
+            index_order = unicorn.index_order.toLong(),
+            jsonPath = unicorn.jsonPath,
+            id = unicorn.id.toLong()
+        )
+
         return true
     }
 
@@ -64,11 +87,15 @@ object Unicorns {
      * Delete a unicorn from the database.
      */
     fun delete(driver: SqlDriver, id: Int): Boolean {
-        val query = "DELETE FROM acme_unicorns WHERE id = $id"
-        driver.execute(null, query, 0)
+        val database = AcmeDatabase(driver)
 
-        // For simplicity, we'll assume the delete was successful
-        // In a real implementation, we would check if any rows were affected
+        // Check if the unicorn exists
+        val exists = database.unicornsQueries.selectById(id.toLong()).executeAsOneOrNull() != null
+        if (!exists) return false
+
+        // Delete the unicorn
+        database.unicornsQueries.delete(id.toLong())
+
         return true
     }
 }

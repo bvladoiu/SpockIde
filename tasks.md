@@ -1,5 +1,8 @@
 # Tasks
 
+## Refactored Unicorns Feature - 05/15/2024
+Refactored the Unicorns feature to use SQLDelight queries instead of raw SQL strings. Added a jsonPath field to store the path to JSON files. Implemented JSON file operations in the API to create/update/delete JSON files when unicorns are modified. Added support for enriching unicorn data from JSON files when retrieving unicorns. Note: Build issues with SQLDelight code generation (redeclaration errors) persist and need to be addressed separately.
+
 ## Restructured Unicorns API - 04/30/2023
 Moved unicorns API to a dedicated package structure under spock.lair.api.acme. Replaced in-memory storage with database access and integrated JSON files from static directory. The API now properly follows the tenant-specific structure and uses the existing database schema.
 

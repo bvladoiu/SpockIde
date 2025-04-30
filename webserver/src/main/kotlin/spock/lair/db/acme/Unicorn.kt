@@ -9,5 +9,6 @@ data class Unicorn(
     val title: String,
     val description: String,
     val icon: String? = null,
-    val index_order: Int
+    val index_order: Int,
+    val jsonPath: String? = null
 )

@@ -7,8 +7,10 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import spock.lair.db.TenantDatabaseManager
+import spock.lair.db.acme.AcmeDatabase
 import spock.lair.db.acme.Unicorn
 import spock.lair.db.acme.Unicorns
 import java.io.File
@@ -34,19 +36,34 @@ fun Application.configureUnicornsApi() {
             val unicorn = call.receive<Unicorn>()
             val locale = call.parameters["locale"] ?: "en"
 
+            // Generate JSON path
+            val jsonPath = "static/acme/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
+            val unicornWithJsonPath = unicorn.copy(jsonPath = jsonPath)
+
             // Create a new unicorn in the database
             val id = TenantDatabaseManager.withTenant(call) { driver ->
-                Unicorns.create(driver, unicorn)
+                Unicorns.create(driver, unicornWithJsonPath)
             }
 
             // Create a new unicorn with the generated ID
-            val createdUnicorn = Unicorn(
-                id = id.toInt(),
-                title = unicorn.title,
-                description = unicorn.description,
-                icon = unicorn.icon,
-                index_order = unicorn.index_order
-            )
+            val createdUnicorn = unicornWithJsonPath.copy(id = id.toInt())
+
+            // Create JSON file
+            try {
+                val jsonDir = File("static/acme/content/unicorns/$locale")
+                jsonDir.mkdirs()
+
+                val jsonContent = UnicornContent(
+                    title = createdUnicorn.title,
+                    icon = createdUnicorn.icon ?: "",
+                    description = createdUnicorn.description
+                )
+
+                File(jsonPath).writeText(Json.encodeToString(jsonContent))
+            } catch (e: Exception) {
+                // Log error but continue
+                println("Error creating JSON file: ${e.message}")
+            }
 
             call.respond(HttpStatusCode.Created, createdUnicorn)
         }
@@ -68,7 +85,9 @@ fun Application.configureUnicornsApi() {
 
             if (unicorn != null) {
                 // Try to load additional data from JSON file
-                val jsonFile = File("static/acme/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json")
+                val jsonPath = unicorn.jsonPath ?: "static/acme/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
+                val jsonFile = File(jsonPath)
+
                 if (jsonFile.exists()) {
                     try {
                         val content = Json.decodeFromString<UnicornContent>(jsonFile.readText())
@@ -121,7 +140,9 @@ fun Application.configureUnicornsApi() {
                 .take(limit)
                 .map { unicorn ->
                     // Try to load additional data from JSON file
-                    val jsonFile = File("static/acme/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json")
+                    val jsonFilePath = unicorn.jsonPath ?: "static/acme/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
+                    val jsonFile = File(jsonFilePath)
+
                     if (jsonFile.exists()) {
                         try {
                             val content = Json.decodeFromString<UnicornContent>(jsonFile.readText())
@@ -151,15 +172,45 @@ fun Application.configureUnicornsApi() {
                 return@put
             }
 
+            // Get existing unicorn to check if it exists and get its jsonPath
+            val existingUnicorn = TenantDatabaseManager.withTenant(call) { driver ->
+                Unicorns.read(driver, id)
+            }
+
+            if (existingUnicorn == null) {
+                call.respond(HttpStatusCode.NotFound, "Unicorn not found")
+                return@put
+            }
+
+            // Generate JSON path if not already set
+            val jsonPath = existingUnicorn.jsonPath ?: "static/acme/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
+            val updatedUnicorn = unicorn.copy(id = id, jsonPath = jsonPath)
+
             // Update unicorn in database
-            val updatedUnicorn = unicorn.copy(id = id)
             val success = TenantDatabaseManager.withTenant(call) { driver ->
                 Unicorns.update(driver, updatedUnicorn)
             }
-            
+
             if (!success) {
                 call.respond(HttpStatusCode.NotFound, "Unicorn not found")
                 return@put
+            }
+
+            // Update JSON file
+            try {
+                val jsonDir = File("static/acme/content/unicorns/$locale")
+                jsonDir.mkdirs()
+
+                val jsonContent = UnicornContent(
+                    title = updatedUnicorn.title,
+                    icon = updatedUnicorn.icon ?: "",
+                    description = updatedUnicorn.description
+                )
+
+                File(jsonPath).writeText(Json.encodeToString(jsonContent))
+            } catch (e: Exception) {
+                // Log error but continue
+                println("Error updating JSON file: ${e.message}")
             }
 
             call.respond(HttpStatusCode.OK, updatedUnicorn)
@@ -175,12 +226,34 @@ fun Application.configureUnicornsApi() {
                 return@delete
             }
 
+            // Get existing unicorn to check if it exists and get its jsonPath
+            val existingUnicorn = TenantDatabaseManager.withTenant(call) { driver ->
+                Unicorns.read(driver, id)
+            }
+
+            if (existingUnicorn == null) {
+                call.respond(HttpStatusCode.NotFound, "Unicorn not found")
+                return@delete
+            }
+
             // Delete unicorn from database
             val success = TenantDatabaseManager.withTenant(call) { driver ->
                 Unicorns.delete(driver, id)
             }
 
             if (success) {
+                // Delete JSON file
+                try {
+                    val jsonPath = existingUnicorn.jsonPath ?: "static/acme/content/unicorns/$locale/${existingUnicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
+                    val jsonFile = File(jsonPath)
+                    if (jsonFile.exists()) {
+                        jsonFile.delete()
+                    }
+                } catch (e: Exception) {
+                    // Log error but continue
+                    println("Error deleting JSON file: ${e.message}")
+                }
+
                 call.respond(HttpStatusCode.NoContent)
             } else {
                 call.respond(HttpStatusCode.NotFound, "Unicorn not found")
