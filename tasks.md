@@ -1,5 +1,14 @@
 # Tasks
 
+## Fixed SQLDelight Redeclaration Issues - 05/01/2024
+Fixed build errors caused by class redeclaration issues with SQLDelight-generated code. Renamed the manually created Unicorns class to UnicornsDao to avoid conflict with the SQLDelight-generated Unicorns class. Updated UnicornsApi to use the renamed UnicornsDao class and removed duplicate classes from the acme package.
+
+## Fixed Database Location and Build Tasks - 05/01/2024
+Modified DatabaseFactory to use static/app.db for the ACME tenant instead of static/db/app.db. Created a buildWebServer task that ensures the database exists without wiping data if it already exists. Updated runWebserver task to depend on buildWebServer instead of copyJsStaticDev to ensure proper database setup before running the server.
+
+## Fixed JS Build and Database Tasks - 05/01/2024
+Fixed the copyJsStaticDev task to handle the missing webapp project by removing all references to it and updating the task to only use the web project. Also fixed buildDir deprecation warnings by using the new layout.buildDirectory API. Successfully tested the database initialization tasks to ensure they create all required database files in the static directory.
+
 ## Removed acme references - 07/15/2024
 Refactored out acme directory from everywhere to support a single tenant approach. Moved UnicornsApi from spock.lair.api.acme to spock.lair.api, renamed table from acme_unicorns to unicorns, updated JSON paths from static/acme/content to static/content, and removed acme-specific code from database-related files.
 

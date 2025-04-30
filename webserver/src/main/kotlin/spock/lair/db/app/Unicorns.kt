@@ -7,7 +7,7 @@ import spock.lair.db.app.AppDatabase
  * DAO-like object for Unicorns with CRUD operations.
  * This class provides a DSL for working with Unicorn entities.
  */
-object Unicorns {
+object UnicornsDao {
     /**
      * Create a new unicorn in the database.
      */

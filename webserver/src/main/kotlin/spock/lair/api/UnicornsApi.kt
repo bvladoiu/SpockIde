@@ -11,7 +11,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import spock.lair.db.TenantDatabaseManager
 import spock.lair.db.app.Unicorn
-import spock.lair.db.app.Unicorns
+import spock.lair.db.app.UnicornsDao
 import java.io.File
 
 /**
@@ -41,7 +41,7 @@ fun Application.configureUnicornsApi() {
 
             // Create a new unicorn in the database
             val id = TenantDatabaseManager.withTenant(call) { driver ->
-                Unicorns.create(driver, unicornWithJsonPath)
+                UnicornsDao.create(driver, unicornWithJsonPath)
             }
 
             // Create a new unicorn with the generated ID
@@ -79,7 +79,7 @@ fun Application.configureUnicornsApi() {
 
             // Get unicorn from database
             val unicorn = TenantDatabaseManager.withTenant(call) { driver ->
-                Unicorns.read(driver, id)
+                UnicornsDao.read(driver, id)
             }
 
             if (unicorn != null) {
@@ -120,7 +120,7 @@ fun Application.configureUnicornsApi() {
 
             // Get unicorns from database
             val unicorns = TenantDatabaseManager.withTenant(call) { driver ->
-                Unicorns.read(driver)
+                UnicornsDao.read(driver)
             }
 
             // Get total count
@@ -173,7 +173,7 @@ fun Application.configureUnicornsApi() {
 
             // Get existing unicorn to check if it exists and get its jsonPath
             val existingUnicorn = TenantDatabaseManager.withTenant(call) { driver ->
-                Unicorns.read(driver, id)
+                UnicornsDao.read(driver, id)
             }
 
             if (existingUnicorn == null) {
@@ -187,7 +187,7 @@ fun Application.configureUnicornsApi() {
 
             // Update unicorn in database
             val success = TenantDatabaseManager.withTenant(call) { driver ->
-                Unicorns.update(driver, updatedUnicorn)
+                UnicornsDao.update(driver, updatedUnicorn)
             }
 
             if (!success) {
@@ -227,7 +227,7 @@ fun Application.configureUnicornsApi() {
 
             // Get existing unicorn to check if it exists and get its jsonPath
             val existingUnicorn = TenantDatabaseManager.withTenant(call) { driver ->
-                Unicorns.read(driver, id)
+                UnicornsDao.read(driver, id)
             }
 
             if (existingUnicorn == null) {
@@ -237,7 +237,7 @@ fun Application.configureUnicornsApi() {
 
             // Delete unicorn from database
             val success = TenantDatabaseManager.withTenant(call) { driver ->
-                Unicorns.delete(driver, id)
+                UnicornsDao.delete(driver, id)
             }
 
             if (success) {

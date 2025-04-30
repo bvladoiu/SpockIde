@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap
  * Simplified for single-tenant approach.
  */
 object DatabaseFactory {
+    private val staticDir = File("static").apply { mkdirs() }
     private val databasesDir = File("static/db").apply { mkdirs() }
     private val versionDir = File(databasesDir, "versions").apply { mkdirs() }
     private val driverCache = ConcurrentHashMap<Tenant, SqlDriver>()
@@ -30,7 +31,12 @@ object DatabaseFactory {
      * This method also handles database creation and migration.
      */
     private fun createDriver(tenant: Tenant): SqlDriver {
-        val dbFile = File(databasesDir, tenant.dbName)
+        // For ACME tenant, use the root static directory
+        val dbFile = if (tenant == Tenant.ACME) {
+            File(staticDir, tenant.dbName)
+        } else {
+            File(databasesDir, tenant.dbName)
+        }
         val versionFile = File(versionDir, "${tenant.id}.version")
         val migrator = getMigrator(tenant)
 

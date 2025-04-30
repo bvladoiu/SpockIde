@@ -8,8 +8,9 @@ val runBrowserTask = "runBrowser"
 val initializeDatabasesTask = "initializeDatabases"
 val fixDatabasesTask = "fixDatabases"
 val directInitDatabasesTask = "directInitDatabases"
+val buildWebServerTask = "buildWebServer"
 val webJsBrowserProductionWebpackTask = ":web:jsBrowserProductionWebpack"
-val webappJsBrowserProductionWebpackTask = ":webapp:jsBrowserProductionWebpack"
+// No webapp project exists, so this task is removed
 val webserverRunTask = ":webserver:run"
 val browserJvmRunTask = ":browser:jvmRun"
 val webserverClassesTask = ":webserver:classes"
@@ -38,25 +39,16 @@ val jsStaticDevDir = layout.buildDirectory.dir("../static")
 tasks.register(copyJsStaticTask, DefaultTask::class) {
     group = "build"
     description = "Builds the JS bundles and copies output to Ktor's static serving directory."
-    dependsOn(webJsBrowserProductionWebpackTask, webappJsBrowserProductionWebpackTask)
+    dependsOn(webJsBrowserProductionWebpackTask)
 
     doLast {
-        val webJsDevBuildDir = project(":web").buildDir.resolve("kotlin-webpack/js/productionExecutable")
-        val webappJsDevBuildDir = project(":webapp").buildDir.resolve("kotlin-webpack/js/productionExecutable")
+        val webJsDevBuildDir = project(":web").layout.buildDirectory.get().asFile.resolve("kotlin-webpack/js/productionExecutable")
         val staticDir = rootDir.resolve("static")
         staticDir.mkdirs()
 
         // Copy web.js files
         copy {
             from(webJsDevBuildDir)
-            into(staticDir)
-            include("*.js")
-            include("*.js.map")
-        }
-
-        // Copy main.js files
-        copy {
-            from(webappJsDevBuildDir)
             into(staticDir)
             include("*.js")
             include("*.js.map")
@@ -69,7 +61,7 @@ tasks.register(copyJsStaticTask, DefaultTask::class) {
 tasks.register(runWebserverTask, DefaultTask::class) {
     group = "application"
     description = "Runs the :webserver in development mode, serving static JS from the dev directory."
-    dependsOn(copyJsStaticTask)
+    dependsOn(buildWebServerTask)
     val ktorRunTask = tasks.getByPath(webserverRunTask)
     (ktorRunTask as JavaExec).apply{
         jvmArgs = listOf(
@@ -146,6 +138,27 @@ tasks.register(fixDatabasesTask, JavaExec::class) {
 }
 
 // Task to directly initialize databases without SQLDelight code generation
+tasks.register(buildWebServerTask, DefaultTask::class) {
+    group = "build"
+    description = "Builds the web server and ensures the database exists without wiping data"
+
+    dependsOn(copyJsStaticTask)
+    dependsOn(webserverClassesTask)
+
+    doLast {
+        val staticDir = rootDir.resolve("static")
+        val appDbFile = staticDir.resolve("app.db")
+
+        if (!appDbFile.exists()) {
+            // Only initialize the database if it doesn't exist
+            println("Database file ${appDbFile.absolutePath} does not exist. Initializing...")
+            tasks.getByName(directInitDatabasesTask).actions.forEach { it.execute(this) }
+        } else {
+            println("Database file ${appDbFile.absolutePath} already exists. Skipping initialization.")
+        }
+    }
+}
+
 tasks.register(directInitDatabasesTask, JavaExec::class) {
     group = "database"
     description = "Directly initializes SQLite database files in the static directory without SQLDelight code generation"
@@ -161,7 +174,7 @@ tasks.register(directInitDatabasesTask, JavaExec::class) {
         classpath = files(requiredDeps)
 
         // Create a temporary Java file that initializes the databases
-        val tempDir = File(buildDir, "temp/directInit")
+        val tempDir = layout.buildDirectory.get().asFile.resolve("temp/directInit")
         tempDir.mkdirs()
 
         val tempJavaFile = File(tempDir, "DirectDbInitializer.java")
