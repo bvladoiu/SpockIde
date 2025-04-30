@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * Factory for creating and managing database connections.
  * This class implements connection pooling for efficient database access.
+ * Simplified for single-tenant approach.
  */
 object DatabaseFactory {
     private val databasesDir = File("static/db").apply { mkdirs() }
@@ -18,17 +19,10 @@ object DatabaseFactory {
     /**
      * Get a database driver for the specified tenant.
      * If the driver doesn't exist, it will be created and initialized.
+     * Note: In the single-tenant approach, this always returns the driver for the ACME tenant.
      */
     fun getDriver(tenant: Tenant): SqlDriver {
         return driverCache.computeIfAbsent(tenant) { createDriver(it) }
-    }
-
-    /**
-     * Get the common database driver.
-     * This is a convenience method for accessing the common database.
-     */
-    fun getCommonDriver(): SqlDriver {
-        return getDriver(Tenant.COMMON)
     }
 
     /**

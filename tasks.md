@@ -1,5 +1,17 @@
 # Tasks
 
+## Removed acme references - 07/15/2024
+Refactored out acme directory from everywhere to support a single tenant approach. Moved UnicornsApi from spock.lair.api.acme to spock.lair.api, renamed table from acme_unicorns to unicorns, updated JSON paths from static/acme/content to static/content, and removed acme-specific code from database-related files.
+
+## Refactored to Single-Tenant Structure - 07/15/2024
+Refactored the project from a multi-tenant structure to a single-tenant structure based on 'acme'. Removed directories for other tenants, consolidated databases to use only one database file (app.db), updated build configuration to define only one database, removed tenant path parameters from all API routes, and cleaned up unused code.
+
+## Added Direct Database Initialization Task - 06/21/2024
+Created a root-level Gradle task 'directInitDatabases' that bypasses SQLDelight code generation to initialize SQLite database files in the static directory. The task uses a Java-based approach to directly create database tables using raw SQL, avoiding the SQLDelight redeclaration issues. Updated the DbInitializer.kt file to include the jsonPath column in the acme_unicorns table.
+
+## Added Database Initialization Task - 06/20/2024
+Created a root-level Gradle task 'initializeDatabases' to initialize SQLite database files in the static directory. Implemented DbInitializer.kt in the webserver module to create and initialize database schemas using raw SQL. Note: The task implementation is complete, but execution is currently blocked by existing SQLDelight code generation redeclaration issues that need to be addressed separately.
+
 ## Refactored Unicorns Feature - 05/15/2024
 Refactored the Unicorns feature to use SQLDelight queries instead of raw SQL strings. Added a jsonPath field to store the path to JSON files. Implemented JSON file operations in the API to create/update/delete JSON files when unicorns are modified. Added support for enriching unicorn data from JSON files when retrieving unicorns. Note: Build issues with SQLDelight code generation (redeclaration errors) persist and need to be addressed separately.
 

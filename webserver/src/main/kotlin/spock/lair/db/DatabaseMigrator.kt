@@ -5,170 +5,55 @@ import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 
 /**
  * Handles database migrations using a switch-based approach similar to Android's SQLiteOpenHelper.
- * This class provides onCreate and onUpgrade methods for each tenant database.
+ * This class provides onCreate and onUpgrade methods for the single database.
+ * Simplified for single-tenant approach.
  */
 class DatabaseMigrator(private val tenant: Tenant) {
 
     companion object {
-        // Current database versions for each tenant
-        private val DATABASE_VERSIONS = mapOf(
-            Tenant.COMMON to 1,
-            Tenant.CONTADEAL to 1,
-            Tenant.PRISMA to 1,
-            Tenant.ACME to 1
-        )
+        // Current database version
+        private const val DATABASE_VERSION = 1
     }
 
     /**
-     * Get the current version of the database for the specified tenant.
+     * Get the current version of the database.
      */
     fun getCurrentVersion(): Int {
-        return DATABASE_VERSIONS[tenant] ?: 1
+        return DATABASE_VERSION
     }
 
     /**
      * Called when the database is created for the first time.
-     * This method should create all the necessary tables.
+     * This method creates all the necessary tables.
      */
     fun onCreate(driver: SqlDriver) {
-        when (tenant) {
-            Tenant.COMMON -> createCommonDatabase(driver)
-            Tenant.CONTADEAL -> createContadealDatabase(driver)
-            Tenant.PRISMA -> createPrismaDatabase(driver)
-            Tenant.ACME -> createAcmeDatabase(driver)
-        }
+        createDatabase(driver)
     }
 
     /**
      * Called when the database needs to be upgraded from an older version to a newer one.
-     * This method should handle all the necessary schema changes.
+     * This method handles all the necessary schema changes.
      */
     fun onUpgrade(driver: SqlDriver, oldVersion: Int, newVersion: Int) {
         if (oldVersion >= newVersion) return
-
-        when (tenant) {
-            Tenant.COMMON -> upgradeCommonDatabase(driver, oldVersion, newVersion)
-            Tenant.CONTADEAL -> upgradeContadealDatabase(driver, oldVersion, newVersion)
-            Tenant.PRISMA -> upgradePrismaDatabase(driver, oldVersion, newVersion)
-            Tenant.ACME -> upgradeAcmeDatabase(driver, oldVersion, newVersion)
-        }
+        upgradeDatabase(driver, oldVersion, newVersion)
     }
 
-    // Common database creation and upgrade
-    private fun createCommonDatabase(driver: SqlDriver) {
-        // Create common database tables
+    // Database creation and upgrade
+    private fun createDatabase(driver: SqlDriver) {
+        // Create database tables
         driver.execute(null, """
-            CREATE TABLE IF NOT EXISTS settings (
-                key TEXT PRIMARY KEY NOT NULL,
-                value TEXT NOT NULL
-            )
-        """.trimIndent(), 0)
-    }
-
-    private fun upgradeCommonDatabase(driver: SqlDriver, oldVersion: Int, newVersion: Int) {
-        // Use a switch-like approach without breaks
-        var version = oldVersion
-
-        if (version == 1) {
-            // Upgrade from version 1 to 2
-            // driver.execute(null, "ALTER TABLE settings ADD COLUMN description TEXT", 0)
-            version = 2
-        }
-
-        if (version == 2) {
-            // Upgrade from version 2 to 3
-            // Add future migrations here
-            version = 3
-        }
-
-        // Add more version checks as needed
-    }
-
-    // Contadeal database creation and upgrade
-    private fun createContadealDatabase(driver: SqlDriver) {
-        // Create contadeal database tables
-        driver.execute(null, """
-            CREATE TABLE IF NOT EXISTS contadeal_users (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT NOT NULL,
-                email TEXT NOT NULL,
-                created_at INTEGER NOT NULL
-            )
-        """.trimIndent(), 0)
-    }
-
-    private fun upgradeContadealDatabase(driver: SqlDriver, oldVersion: Int, newVersion: Int) {
-        // Use a switch-like approach without breaks
-        var version = oldVersion
-
-        if (version == 1) {
-            // Upgrade from version 1 to 2
-            // driver.execute(null, "ALTER TABLE contadeal_users ADD COLUMN last_login INTEGER", 0)
-            version = 2
-        }
-
-        if (version == 2) {
-            // Upgrade from version 2 to 3
-            // Add future migrations here
-            version = 3
-        }
-
-        // Add more version checks as needed
-    }
-
-    // Prisma database creation and upgrade
-    private fun createPrismaDatabase(driver: SqlDriver) {
-        // Create prisma database tables
-        driver.execute(null, """
-            CREATE TABLE IF NOT EXISTS prisma_competences (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                competence_id TEXT NOT NULL UNIQUE,
-                index_order INTEGER NOT NULL
-            )
-        """.trimIndent(), 0)
-    }
-
-    private fun upgradePrismaDatabase(driver: SqlDriver, oldVersion: Int, newVersion: Int) {
-        // Use a switch-like approach without breaks
-        var version = oldVersion
-
-        if (version == 1) {
-            // Upgrade from version 1 to 2
-            // If we're upgrading from a version with prisma_products, drop it and create prisma_competences
-            driver.execute(null, "DROP TABLE IF EXISTS prisma_products", 0)
-            driver.execute(null, """
-                CREATE TABLE IF NOT EXISTS prisma_competences (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    competence_id TEXT NOT NULL UNIQUE,
-                    index_order INTEGER NOT NULL
-                )
-            """.trimIndent(), 0)
-            version = 2
-        }
-
-        if (version == 2) {
-            // Upgrade from version 2 to 3
-            // Add future migrations here
-            version = 3
-        }
-
-        // Add more version checks as needed
-    }
-
-    // Acme database creation and upgrade
-    private fun createAcmeDatabase(driver: SqlDriver) {
-        // Create acme database tables
-        driver.execute(null, """
-            CREATE TABLE IF NOT EXISTS acme_unicorns (
+            CREATE TABLE IF NOT EXISTS unicorns (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT NOT NULL,
                 description TEXT NOT NULL,
-                index_order INTEGER NOT NULL
+                index_order INTEGER NOT NULL,
+                jsonPath TEXT
             )
         """.trimIndent(), 0)
     }
 
-    private fun upgradeAcmeDatabase(driver: SqlDriver, oldVersion: Int, newVersion: Int) {
+    private fun upgradeDatabase(driver: SqlDriver, oldVersion: Int, newVersion: Int) {
         // Use a switch-like approach without breaks
         var version = oldVersion
 

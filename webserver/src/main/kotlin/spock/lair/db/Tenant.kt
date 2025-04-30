@@ -1,27 +1,19 @@
 package spock.lair.db
 
 /**
- * Enum representing the different tenants in the system.
- * Each tenant has its own database, and all tenants have access to the common database.
+ * Enum representing the single tenant in the system.
+ * This is a simplified version that only supports the ACME tenant.
  */
 enum class Tenant(val id: String, val dbName: String) {
-    CONTADEAL("contadeal", "contadeal.db"),
-    PRISMA("prisma", "prisma.db"),
-    ACME("acme", "acme.db"),
-    COMMON("common", "common.db");
+    ACME("acme", "app.db");
 
     companion object {
         /**
          * Get the tenant from a URL path.
-         * Example: "/contadeal/en/some_page" -> CONTADEAL
-         * Example: "/prisma/de/home" -> PRISMA
-         * If no tenant is found, returns null.
+         * Since we only have one tenant, this always returns ACME.
          */
-        fun fromPath(path: String): Tenant? {
-            val normalizedPath = path.trim('/').lowercase()
-            val firstSegment = normalizedPath.split('/').firstOrNull() ?: return null
-
-            return values().find { it.id == firstSegment }
+        fun fromPath(path: String): Tenant {
+            return ACME
         }
     }
 }

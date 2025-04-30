@@ -4,7 +4,7 @@ package spock.lair
 import io.ktor.server.application.*
 import io.ktor.server.cio.*
 import io.ktor.server.engine.*
-import spock.lair.api.acme.configureUnicornsApi
+import spock.lair.api.configureUnicornsApi
 import spock.lair.db.configureDatabases
 import java.io.File
 

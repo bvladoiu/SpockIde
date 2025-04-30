@@ -1,5 +1,5 @@
-// file :webserver:main:api:acme:UnicornsApi.kt
-package spock.lair.api.acme
+// file :webserver:main:api:UnicornsApi.kt
+package spock.lair.api
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -10,8 +10,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import spock.lair.db.TenantDatabaseManager
-import spock.lair.db.acme.Unicorn
-import spock.lair.db.acme.Unicorns
+import spock.lair.db.app.Unicorn
+import spock.lair.db.app.Unicorns
 import java.io.File
 
 /**
@@ -36,7 +36,7 @@ fun Application.configureUnicornsApi() {
             val locale = call.parameters["locale"] ?: "en"
 
             // Generate JSON path
-            val jsonPath = "static/acme/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
+            val jsonPath = "static/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
             val unicornWithJsonPath = unicorn.copy(jsonPath = jsonPath)
 
             // Create a new unicorn in the database
@@ -49,7 +49,7 @@ fun Application.configureUnicornsApi() {
 
             // Create JSON file
             try {
-                val jsonDir = File("static/acme/content/unicorns/$locale")
+                val jsonDir = File("static/content/unicorns/$locale")
                 jsonDir.mkdirs()
 
                 val jsonContent = UnicornContent(
@@ -84,7 +84,7 @@ fun Application.configureUnicornsApi() {
 
             if (unicorn != null) {
                 // Try to load additional data from JSON file
-                val jsonPath = unicorn.jsonPath ?: "static/acme/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
+                val jsonPath = unicorn.jsonPath ?: "static/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
                 val jsonFile = File(jsonPath)
 
                 if (jsonFile.exists()) {
@@ -139,7 +139,7 @@ fun Application.configureUnicornsApi() {
                 .take(limit)
                 .map { unicorn ->
                     // Try to load additional data from JSON file
-                    val jsonFilePath = unicorn.jsonPath ?: "static/acme/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
+                    val jsonFilePath = unicorn.jsonPath ?: "static/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
                     val jsonFile = File(jsonFilePath)
 
                     if (jsonFile.exists()) {
@@ -182,7 +182,7 @@ fun Application.configureUnicornsApi() {
             }
 
             // Generate JSON path if not already set
-            val jsonPath = existingUnicorn.jsonPath ?: "static/acme/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
+            val jsonPath = existingUnicorn.jsonPath ?: "static/content/unicorns/$locale/${unicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
             val updatedUnicorn = unicorn.copy(id = id, jsonPath = jsonPath)
 
             // Update unicorn in database
@@ -197,7 +197,7 @@ fun Application.configureUnicornsApi() {
 
             // Update JSON file
             try {
-                val jsonDir = File("static/acme/content/unicorns/$locale")
+                val jsonDir = File("static/content/unicorns/$locale")
                 jsonDir.mkdirs()
 
                 val jsonContent = UnicornContent(
@@ -243,7 +243,7 @@ fun Application.configureUnicornsApi() {
             if (success) {
                 // Delete JSON file
                 try {
-                    val jsonPath = existingUnicorn.jsonPath ?: "static/acme/content/unicorns/$locale/${existingUnicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
+                    val jsonPath = existingUnicorn.jsonPath ?: "static/content/unicorns/$locale/${existingUnicorn.title.lowercase().replace(" ", "_")}_unicorn.json"
                     val jsonFile = File(jsonPath)
                     if (jsonFile.exists()) {
                         jsonFile.delete()

@@ -1,0 +1,35 @@
+CREATE TABLE unicorns (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    index_order INTEGER NOT NULL,
+    jsonPath TEXT
+);
+
+-- Queries
+selectAll:
+SELECT * FROM unicorns ORDER BY index_order;
+
+selectById:
+SELECT * FROM unicorns WHERE id = ?;
+
+selectByTitle:
+SELECT * FROM unicorns WHERE title = ?;
+
+selectWithPagination:
+SELECT * FROM unicorns ORDER BY index_order LIMIT ? OFFSET ?;
+
+countAll:
+SELECT COUNT(*) FROM unicorns;
+
+insert:
+INSERT INTO unicorns (title, description, index_order, jsonPath) VALUES (?, ?, ?, ?);
+
+update:
+UPDATE unicorns SET title = ?, description = ?, index_order = ?, jsonPath = ? WHERE id = ?;
+
+delete:
+DELETE FROM unicorns WHERE id = ?;
+
+lastInsertRowId:
+SELECT last_insert_rowid();

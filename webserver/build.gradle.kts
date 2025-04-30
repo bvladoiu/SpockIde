@@ -16,17 +16,8 @@ application {
 
 sqldelight {
     databases {
-        create("CommonDatabase") {
-            packageName = "spock.lair.db.common"
-        }
-        create("ContadealDatabase") {
-            packageName = "spock.lair.db.contadeal"
-        }
-        create("PrismaDatabase") {
-            packageName = "spock.lair.db.prisma"
-        }
-        create("AcmeDatabase") {
-            packageName = "spock.lair.db.acme"
+        create("AppDatabase") {
+            packageName = "spock.lair.db.app"
         }
     }
 }
