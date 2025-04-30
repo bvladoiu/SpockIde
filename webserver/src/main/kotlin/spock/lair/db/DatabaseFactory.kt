@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap
  * This class implements connection pooling for efficient database access.
  */
 object DatabaseFactory {
-    private val databasesDir = File("databases").apply { mkdirs() }
+    private val databasesDir = File("static/db").apply { mkdirs() }
     private val versionDir = File(databasesDir, "versions").apply { mkdirs() }
     private val driverCache = ConcurrentHashMap<Tenant, SqlDriver>()
     private val migrators = ConcurrentHashMap<Tenant, DatabaseMigrator>()

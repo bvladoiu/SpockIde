@@ -1,5 +1,11 @@
 # Tasks
 
+## Moved Database Files - 07/11/2023
+Relocated database files to the /static/db/ directory for better organization and accessibility. Modified DatabaseFactory to store SQLite database files (prisma.db, acme.db, contadeal.db, common.db) in the static/db directory instead of a separate databases directory.
+
+## Added Unicorn DAO - 07/10/2023
+Added a Unicorn data class and Unicorns DAO-like object with CRUD operations for the acme subpackage. Updated SQLDelight configuration to include the AcmeDatabase. The implementation allows for creating, reading, updating, and deleting unicorn entities in the database.
+
 ## Added Acme Tenant with Unicorns - 06/20/2023
 Added a new acme tenant with Unicorns entity, mimicking the structure of competences in prisma. Created necessary database files, static content, and updated configuration to support the new tenant.
 

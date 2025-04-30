@@ -25,6 +25,9 @@ sqldelight {
         create("PrismaDatabase") {
             packageName = "spock.lair.db.prisma"
         }
+        create("AcmeDatabase") {
+            packageName = "spock.lair.db.acme"
+        }
     }
 }
 
