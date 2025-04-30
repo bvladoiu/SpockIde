@@ -1,5 +1,11 @@
 # Tasks
 
+## Restructured Unicorns API - 04/30/2023
+Moved unicorns API to a dedicated package structure under spock.lair.api.acme. Replaced in-memory storage with database access and integrated JSON files from static directory. The API now properly follows the tenant-specific structure and uses the existing database schema.
+
+## Added Unicorns REST API - 07/12/2023
+Implemented a REST API for unicorns under the /acme/{locale}/unicorns path with full CRUD operations. The API supports pagination with limit and offset parameters, with limit defaulting to 5 and constrained to 0-25 range. Created in-memory storage for demonstration purposes with proper validation and error handling.
+
 ## Moved Database Files - 07/11/2023
 Relocated database files to the /static/db/ directory for better organization and accessibility. Modified DatabaseFactory to store SQLite database files (prisma.db, acme.db, contadeal.db, common.db) in the static/db directory instead of a separate databases directory.
 
