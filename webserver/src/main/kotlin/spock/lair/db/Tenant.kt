@@ -7,6 +7,7 @@ package spock.lair.db
 enum class Tenant(val id: String, val dbName: String) {
     CONTADEAL("contadeal", "contadeal.db"),
     PRISMA("prisma", "prisma.db"),
+    ACME("acme", "acme.db"),
     COMMON("common", "common.db");
 
     companion object {
@@ -19,7 +20,7 @@ enum class Tenant(val id: String, val dbName: String) {
         fun fromPath(path: String): Tenant? {
             val normalizedPath = path.trim('/').lowercase()
             val firstSegment = normalizedPath.split('/').firstOrNull() ?: return null
-            
+
             return values().find { it.id == firstSegment }
         }
     }

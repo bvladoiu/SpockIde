@@ -1,0 +1,25 @@
+CREATE TABLE acme_unicorns (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    index_order INTEGER NOT NULL
+);
+
+-- Queries
+selectAll:
+SELECT * FROM acme_unicorns ORDER BY index_order;
+
+selectById:
+SELECT * FROM acme_unicorns WHERE id = ?;
+
+selectByTitle:
+SELECT * FROM acme_unicorns WHERE title = ?;
+
+insert:
+INSERT INTO acme_unicorns (title, description, index_order) VALUES (?, ?, ?);
+
+update:
+UPDATE acme_unicorns SET title = ?, description = ?, index_order = ? WHERE id = ?;
+
+delete:
+DELETE FROM acme_unicorns WHERE id = ?;

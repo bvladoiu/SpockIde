@@ -1,23 +1,12 @@
 package spock.lair.html
 
 import kotlinx.css.footer
-import kotlinx.html.HTML
-import kotlinx.html.body
-import kotlinx.html.head
-import kotlinx.html.header
-import kotlinx.html.li
-import kotlinx.html.main
-import kotlinx.html.nav
-import kotlinx.html.section
-import kotlinx.html.ul
+import kotlinx.html.*
+import spock.lair.PageObject
 import spock.lair.components.themeSwitch
 
 
-fun HTML.scaffold() {
-    head {
-
-    }
-    body {
+fun FlowContent.scaffold(page: PageObject, block: FlowContent.() -> Unit) {
         header {
             logoLink()
             nav {
@@ -33,12 +22,7 @@ fun HTML.scaffold() {
             cta()
         }
         main {
-            section("hero") { }
-            section("competences") { }
-            section("latest") { }
+          block.invoke(this)
         }
         footer
-
-    }
-
 }

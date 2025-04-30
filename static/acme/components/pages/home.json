@@ -1,0 +1,57 @@
+{
+  "title": "home_page_title_id",
+  "sections": {
+    "hero": {
+      "title": "home_hero_title_id",
+      "subtitle": "home_hero_subtitle_id",
+      "image": "/static/images/hero.jpg",
+      "cta": {
+        "text": "home_hero_cta_text_id",
+        "url": "/en/about"
+      }
+    },
+    "unicorns": {
+      "title": "home_unicorns_title_id",
+      "items": [
+        {
+          "title": "home_unicorns_magical_title_id",
+          "description": "home_unicorns_magical_desc_id",
+          "icon": "magic"
+        },
+        {
+          "title": "home_unicorns_rainbow_title_id",
+          "description": "home_unicorns_rainbow_desc_id",
+          "icon": "rainbow"
+        },
+        {
+          "title": "home_unicorns_sparkle_title_id",
+          "description": "home_unicorns_sparkle_desc_id",
+          "icon": "sparkle"
+        }
+      ]
+    },
+    "latest": {
+      "title": "home_latest_title_id",
+      "posts": [
+        {
+          "title": "home_latest_post1_title_id",
+          "date": "2023-10-15",
+          "summary": "home_latest_post1_summary_id",
+          "url": "/en/press/new-website-launch"
+        },
+        {
+          "title": "home_latest_post2_title_id",
+          "date": "2023-09-28",
+          "summary": "home_latest_post2_summary_id",
+          "url": "/en/press/mobile-app-update"
+        },
+        {
+          "title": "home_latest_post3_title_id",
+          "date": "2023-09-10",
+          "summary": "home_latest_post3_summary_id",
+          "url": "/en/press/cloud-services-expansion"
+        }
+      ]
+    }
+  }
+}

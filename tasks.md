@@ -1,5 +1,11 @@
 # Tasks
 
+## Added Acme Tenant with Unicorns - 06/20/2023
+Added a new acme tenant with Unicorns entity, mimicking the structure of competences in prisma. Created necessary database files, static content, and updated configuration to support the new tenant.
+
+## Simplified Routing - 06/16/2023
+Simplified Routing.kt to only serve JS files from the static/ directory, removing all other routes and functionality. This streamlines the server to focus solely on serving static JavaScript files.
+
 ## Renamed Products.sq to Competences.sq - 06/01/2025
 Renamed Products.sq to Competences.sq to better reflect its purpose of storing competence entities instead of products. The schema remains the same with id, competence_id, and index_order fields.
 
@@ -8,6 +14,9 @@ Updated SQLDelight configuration to align with the multitenant database architec
 
 ## Implemented multitenant database - 05/30/2025
 Created a multitenant database framework that supports tenant-specific databases (contadeal.db, prisma.db) and a common database (common.db). Implemented Android-like onCreate and onUpgrade methods with a switch-based migration approach. Added DSL-style database operations for easy access.
+
+## Refactored scaffold to page - 06/15/2023
+Renamed scaffold() to page() and moved it to Page.kt. The function now calls the scaffold DSL HTML function from html/layout.kt. Updated Routing.kt to use the new page() function.
 
 ## Cleaned up common.json - 04/29/2025
 Removed unused labels from common.json files in both language directories, keeping only theme-switcher related labels. This ensures a cleaner and more focused translation structure.

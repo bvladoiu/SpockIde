@@ -14,7 +14,8 @@ class DatabaseMigrator(private val tenant: Tenant) {
         private val DATABASE_VERSIONS = mapOf(
             Tenant.COMMON to 1,
             Tenant.CONTADEAL to 1,
-            Tenant.PRISMA to 1
+            Tenant.PRISMA to 1,
+            Tenant.ACME to 1
         )
     }
 
@@ -34,6 +35,7 @@ class DatabaseMigrator(private val tenant: Tenant) {
             Tenant.COMMON -> createCommonDatabase(driver)
             Tenant.CONTADEAL -> createContadealDatabase(driver)
             Tenant.PRISMA -> createPrismaDatabase(driver)
+            Tenant.ACME -> createAcmeDatabase(driver)
         }
     }
 
@@ -48,6 +50,7 @@ class DatabaseMigrator(private val tenant: Tenant) {
             Tenant.COMMON -> upgradeCommonDatabase(driver, oldVersion, newVersion)
             Tenant.CONTADEAL -> upgradeContadealDatabase(driver, oldVersion, newVersion)
             Tenant.PRISMA -> upgradePrismaDatabase(driver, oldVersion, newVersion)
+            Tenant.ACME -> upgradeAcmeDatabase(driver, oldVersion, newVersion)
         }
     }
 
@@ -140,6 +143,38 @@ class DatabaseMigrator(private val tenant: Tenant) {
                     index_order INTEGER NOT NULL
                 )
             """.trimIndent(), 0)
+            version = 2
+        }
+
+        if (version == 2) {
+            // Upgrade from version 2 to 3
+            // Add future migrations here
+            version = 3
+        }
+
+        // Add more version checks as needed
+    }
+
+    // Acme database creation and upgrade
+    private fun createAcmeDatabase(driver: SqlDriver) {
+        // Create acme database tables
+        driver.execute(null, """
+            CREATE TABLE IF NOT EXISTS acme_unicorns (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT NOT NULL,
+                description TEXT NOT NULL,
+                index_order INTEGER NOT NULL
+            )
+        """.trimIndent(), 0)
+    }
+
+    private fun upgradeAcmeDatabase(driver: SqlDriver, oldVersion: Int, newVersion: Int) {
+        // Use a switch-like approach without breaks
+        var version = oldVersion
+
+        if (version == 1) {
+            // Upgrade from version 1 to 2
+            // Add future migrations here
             version = 2
         }
 
