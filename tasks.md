@@ -1,5 +1,11 @@
 # Tasks
 
+## Removed SQLDelight and Database Logic - 07/25/2024
+Purged the project of SQLDelight code and database logic. Replaced database-backed unicorns API with an in-memory implementation using a hardcoded list. Removed SQLDelight plugin and related libraries from the build configuration. Commented out database-related Gradle tasks. Updated DatabasePlugin to be a placeholder that doesn't initialize any database.
+
+## Simplified DB Package - 07/20/2024
+Simplified the db package by merging files and removing multi-tenant logic. Created a new DatabaseManager class to replace TenantDatabaseManager, updated UnicornsApi to use the new API, removed references to prisma, contadeal, and common databases from build.gradle.kts, and updated Tenant enum to use APP instead of ACME. This change streamlines the database layer for a single-tenant application.
+
 ## Fixed SQLDelight Redeclaration Issues - 05/01/2024
 Fixed build errors caused by class redeclaration issues with SQLDelight-generated code. Renamed the manually created Unicorns class to UnicornsDao to avoid conflict with the SQLDelight-generated Unicorns class. Updated UnicornsApi to use the renamed UnicornsDao class and removed duplicate classes from the acme package.
 

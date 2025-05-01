@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
-    alias(libs.plugins.sqldelight)
     alias(libs.plugins.kotlinxSerialization)
 }
 
@@ -12,14 +11,6 @@ application {
     mainClass = "spock.lair.ApplicationKt"
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
-}
-
-sqldelight {
-    databases {
-        create("AppDatabase") {
-            packageName = "spock.lair.db.app"
-        }
-    }
 }
 
 dependencies {
@@ -33,9 +24,4 @@ dependencies {
     implementation(libs.logback.classic)
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
-
-    // SQLite and JDBC drivers
-    implementation(libs.sqlite.jdbc)
-    implementation(libs.sqldelight.sqlite.driver)
-    implementation(libs.sqldelight.jdbc.driver)
 }

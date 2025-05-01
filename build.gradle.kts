@@ -5,9 +5,10 @@ val dependencyUpdatesTask = "dependencyUpdates"
 val copyJsStaticTask = "copyJsStaticDev"
 val runWebserverTask = "runWebserver"
 val runBrowserTask = "runBrowser"
-val initializeDatabasesTask = "initializeDatabases"
-val fixDatabasesTask = "fixDatabases"
-val directInitDatabasesTask = "directInitDatabases"
+// Database tasks removed as part of database purge
+// val initializeDatabasesTask = "initializeDatabases"
+// val fixDatabasesTask = "fixDatabases"
+// val directInitDatabasesTask = "directInitDatabases"
 val buildWebServerTask = "buildWebServer"
 val webJsBrowserProductionWebpackTask = ":web:jsBrowserProductionWebpack"
 // No webapp project exists, so this task is removed
@@ -83,6 +84,8 @@ tasks.register(runBrowserTask, DefaultTask::class) {
     dependsOn(browserRunTask)
 }
 
+// Database tasks removed as part of database purge
+/*
 tasks.register(initializeDatabasesTask, JavaExec::class) {
     group = "database"
     description = "Initializes SQLite database files in the static directory"
@@ -136,29 +139,21 @@ tasks.register(fixDatabasesTask, JavaExec::class) {
         println("Database initialization completed successfully")
     }
 }
+*/
 
 // Task to directly initialize databases without SQLDelight code generation
 tasks.register(buildWebServerTask, DefaultTask::class) {
     group = "build"
-    description = "Builds the web server and ensures the database exists without wiping data"
+    description = "Builds the web server"
 
     dependsOn(copyJsStaticTask)
     dependsOn(webserverClassesTask)
 
-    doLast {
-        val staticDir = rootDir.resolve("static")
-        val appDbFile = staticDir.resolve("app.db")
-
-        if (!appDbFile.exists()) {
-            // Only initialize the database if it doesn't exist
-            println("Database file ${appDbFile.absolutePath} does not exist. Initializing...")
-            tasks.getByName(directInitDatabasesTask).actions.forEach { it.execute(this) }
-        } else {
-            println("Database file ${appDbFile.absolutePath} already exists. Skipping initialization.")
-        }
-    }
+    // Database initialization removed as part of database purge
 }
 
+// Database task removed as part of database purge
+/*
 tasks.register(directInitDatabasesTask, JavaExec::class) {
     group = "database"
     description = "Directly initializes SQLite database files in the static directory without SQLDelight code generation"
@@ -217,30 +212,6 @@ tasks.register(directInitDatabasesTask, JavaExec::class) {
                         "jsonPath TEXT" +
                         ")");
 
-                    // Initialize common.db
-                    initializeDatabase(staticDir, "common.db", 
-                        "CREATE TABLE IF NOT EXISTS settings (" +
-                        "key TEXT PRIMARY KEY NOT NULL," +
-                        "value TEXT NOT NULL" +
-                        ")");
-
-                    // Initialize contadeal.db
-                    initializeDatabase(staticDir, "contadeal.db", 
-                        "CREATE TABLE IF NOT EXISTS contadeal_users (" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        "username TEXT NOT NULL," +
-                        "email TEXT NOT NULL," +
-                        "created_at INTEGER NOT NULL" +
-                        ")");
-
-                    // Initialize prisma.db
-                    initializeDatabase(staticDir, "prisma.db", 
-                        "CREATE TABLE IF NOT EXISTS prisma_competences (" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        "competence_id TEXT NOT NULL UNIQUE," +
-                        "index_order INTEGER NOT NULL" +
-                        ")");
-
                     System.out.println("Database initialization completed successfully");
                 }
 
@@ -289,3 +260,4 @@ tasks.register(directInitDatabasesTask, JavaExec::class) {
     // Set the working directory to the project root
     workingDir = rootDir
 }
+*/
