@@ -39,7 +39,6 @@ dependencyResolutionManagement {
 rootProject.name = "lair"
 
 //include(":editor")
-//include(":tools")
 include(":webserver")
 include(":web")
 include(":browser")
