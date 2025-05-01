@@ -13,6 +13,34 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
+val copyJsToResources = "copyJsToResources"
+val webJsBrowserProductionWebpackTask = ":web:jsBrowserProductionWebpack"
+
+tasks.register(copyJsToResources, DefaultTask::class) {
+    group = "build"
+    description = "Builds the JS bundles and copies output to webserver's resources/js directory."
+    dependsOn(webJsBrowserProductionWebpackTask)
+
+    doLast {
+        val webJsDevBuildDir = rootProject.project(":web").layout.buildDirectory.get().asFile.resolve("kotlin-webpack/js/productionExecutable")
+        val resourcesJsDir = project.layout.projectDirectory.dir("src/main/resources/js").asFile
+        resourcesJsDir.mkdirs()
+
+        copy {
+            from(webJsDevBuildDir)
+            into(resourcesJsDir)
+            include("*.js")
+            include("*.js.map")
+        }
+
+        println("Copied JS files to: ${resourcesJsDir.absolutePath}")
+    }
+}
+
+tasks.named("run").configure {
+    dependsOn(copyJsToResources)
+}
+
 dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.websockets)

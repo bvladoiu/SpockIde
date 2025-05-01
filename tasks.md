@@ -8,3 +8,6 @@ Purged the project of SQLDelight code and database logic. Replaced database-back
 
 ## Added multilingual navigation - 05/15/2023
 Created language-specific directories (en/de) in static/components/data with pages.json files containing navigation items in English and German.
+
+## Added JS copy task - 05/01/2025
+Added a new task in the webserver module that copies JS output from web module to resources/js/ directory and made the run task depend on it.
