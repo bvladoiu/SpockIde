@@ -1,7 +1,6 @@
 package spock.lair.css
 
 import kotlinx.css.*
-import kotlinx.css.properties.*
 
 /**
  * CSS DSL for layout styles.
