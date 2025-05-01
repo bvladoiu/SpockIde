@@ -12,7 +12,6 @@ fun mainStyles(): CSSBuilder {
         addStyles(layoutStyles())
         addStyles(sectionStyles())
         addStyles(buttonStyles())
-        addStyles(componentStyles())
         addStyles(articleStyles())
         addStyles(langSelectStyles())
         addStyles(editorStyles())

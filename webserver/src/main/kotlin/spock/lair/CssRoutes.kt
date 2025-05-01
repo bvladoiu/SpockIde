@@ -44,10 +44,6 @@ fun Application.configureCssRoutes() {
                 call.respondText(buttonStyles().toString(), ContentType.Text.CSS)
             }
 
-            get("/static/css/dev/component.css") {
-                call.respondText(componentStyles().toString(), ContentType.Text.CSS)
-            }
-
             get("/static/css/dev/article.css") {
                 call.respondText(articleStyles().toString(), ContentType.Text.CSS)
             }

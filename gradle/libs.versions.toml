@@ -39,6 +39,7 @@ kotlin-wrappers-browser-js = "2025.4.16"
 # sqldelight = "2.0.1" # Removed as part of database purge
 sqlite-jdbc = "3.45.1.0"
 sqlite-driver = "2.0.1"
+graalvm = "23.1.2"
 
 [libraries]
 # compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
@@ -52,6 +53,8 @@ darkrockstudios-mpfilepicker = { group = "com.darkrockstudios", name = "mpfilepi
 sqlite-jdbc = { group = "org.xerial", name = "sqlite-jdbc", version.ref = "sqlite-jdbc" }
 # sqldelight-sqlite-driver = { group = "app.cash.sqldelight", name = "sqlite-driver", version.ref = "sqlite-driver" } # Removed as part of database purge
 # sqldelight-jdbc-driver = { group = "app.cash.sqldelight", name = "jdbc-driver", version.ref = "sqlite-driver" } # Removed as part of database purge
+graalvm-sdk = { group = "org.graalvm.sdk", name = "graal-sdk", version.ref = "graalvm" }
+graalvm-nativeimage = { group = "org.graalvm.nativeimage", name = "svm", version.ref = "graalvm" }
 
 microsoft-playwright = { group = "com.microsoft.playwright", name = "playwright", version.ref = "playwright" }
 slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
