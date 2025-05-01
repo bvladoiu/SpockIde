@@ -1,35 +1,9 @@
 // file :webserver:main:components:themeSwitcher.kt
-package spock.lair.components
+package spock.lair.css
 
 import kotlinx.css.*
 import kotlinx.css.properties.*
-import kotlinx.html.*
 
-/**
- * Creates a theme switcher component.
- * This component allows users to toggle between light and dark themes.
- */
-fun FlowContent.themeSwitch() {
-    div {
-        classes = setOf("theme-switcher")
-        attributes["data-component"] = "theme-switcher"
-
-        button {
-            classes = setOf("theme-toggle")
-            attributes["aria-label"] = "Toggle dark mode"
-            attributes["title"] = "Toggle dark mode"
-
-            span {
-                classes = setOf("theme-toggle-icon", "light-icon")
-                +"☀️"
-            }
-            span {
-                classes = setOf("theme-toggle-icon", "dark-icon")
-                +"🌙"
-            }
-        }
-    }
-}
 
 /**
  * CSS DSL for theme switcher styles.

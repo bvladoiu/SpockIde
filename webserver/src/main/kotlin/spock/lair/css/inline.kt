@@ -57,6 +57,6 @@ fun inlineStyles(): CSSBuilder {
         }
 
         // Import theme switcher styles
-        val themeSwitcherStyles = spock.lair.components.themeSwitcherStyles()
+        val themeSwitcherStyles = themeSwitcherStyles()
     }
 }
