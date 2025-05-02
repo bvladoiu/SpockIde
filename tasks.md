@@ -1,5 +1,17 @@
 # Tasks
 
+## Added Compose HTML Entrypoint - 05/15/2024
+Created an index.html file in the browser module's JS resources directory with a root element and script tag. Modified JsMain.kt to render a "Hello from Compose Html" Text composable using Compose HTML.
+
+## Added Browser Desktop Configuration - 08/18/2024
+Added compose for desktop configuration to the browser module's JVM target. This creates a runnable executable for the current OS (Windows, Mac, Linux) using the compose.desktop application DSL, even though the module doesn't have a UI.
+
+## Moved Browser Dependency to Catalog - 08/17/2024
+Moved the string dependency "com.composables:core:1.29.0" in the browser module to the version catalog in libs.versions.toml. This improves dependency management by centralizing version information and making it easier to update dependencies across the project.
+
+## Browser JS Compose Config - 08/16/2024
+Configured the browser module's JS part with Compose HTML and Compose Unstyled dependencies, and added Kotlin Storytale to the common part. This enables the use of Compose HTML components in the browser module's JS code.
+
 ## Fixed GraalVM Plugin Compilation Error - 08/15/2024
 Completely removed the GraalVM plugin from the webserver module due to persistent compilation errors. The plugin was causing conflicts with the classpath. The GraalVM dependencies are still available for use with the custom native image build task.
 

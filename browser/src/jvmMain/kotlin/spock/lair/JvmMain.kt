@@ -21,45 +21,27 @@ fun run(args: String? = null) {
     page.onConsoleMessage { message ->
         trace(message)
     }
-    val scriptPath = "static/web.js"
-    val file = java.io.File(scriptPath)
-    println("Looking for script at: ${file.absolutePath}")
 
-    if (!file.exists()) {
-        // Try to find the file using an absolute path from the project root
-        val projectRoot = System.getProperty("user.dir")
-        println("Project root directory: $projectRoot")
+    val scriptPath = "/build/kotlin-webpack/js/productionExecutable/browser.js"
+    val projectRoot = System.getProperty("user.dir")
+    val absoluteScriptPath = java.io.File(projectRoot, scriptPath)
 
-        val absoluteScriptPath = java.io.File(projectRoot, scriptPath)
-        println("Trying absolute path: ${absoluteScriptPath.absolutePath}")
+    if (!absoluteScriptPath.exists()) {
+        println("Error: Could not find script file at $scriptPath or $absoluteScriptPath")
 
-        if (!absoluteScriptPath.exists()) {
-            println("Error: Could not find script file at $scriptPath or $absoluteScriptPath")
-
-            // List files in the static directory to help diagnose the issue
-            val staticDir = java.io.File(projectRoot, "static")
-            if (staticDir.exists() && staticDir.isDirectory) {
-                println("Files in static directory:")
-                staticDir.listFiles()?.forEach { println("  - ${it.name}") }
-            } else {
-                println("Static directory not found at: ${staticDir.absolutePath}")
-            }
-
-            return
+        val staticDir = java.io.File(projectRoot, "static")
+        if (staticDir.exists() && staticDir.isDirectory) {
+            println("Files in static directory:")
+            staticDir.listFiles()?.forEach { println("  - ${it.name}") }
+        } else {
+            println("Static directory not found at: ${staticDir.absolutePath}")
         }
-
-        println("Found script at: ${absoluteScriptPath.absolutePath}")
-        val scriptContent = absoluteScriptPath.readText()
-        println("Script content length: ${scriptContent.length} characters")
-        page.addInitScript(scriptContent)
-        println("Script injected successfully")
-    } else {
-        println("Found script at: ${file.absolutePath}")
-        val scriptContent = file.readText()
-        println("Script content length: ${scriptContent.length} characters")
-        page.addInitScript(scriptContent)
-        println("Script injected successfully")
+        return
     }
+    val scriptContent = absoluteScriptPath.readText()
+    println("Script content length: ${scriptContent.length} characters")
+    page.addInitScript(scriptContent)
+    println("Script injected successfully")
     page.navigate(args?.type() ?: "https://relay.material.io/")
 }
 

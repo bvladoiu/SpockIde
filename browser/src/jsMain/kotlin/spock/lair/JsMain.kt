@@ -1,7 +1,12 @@
 package spock.lair
 
+import androidx.compose.runtime.Composable
 import kotlinx.browser.document
 import kotlinx.browser.window
+import org.jetbrains.compose.web.css.Style
+import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.renderComposable
 import org.w3c.dom.Element
 import org.w3c.dom.HTMLAnchorElement
 import org.w3c.dom.HTMLStyleElement
@@ -14,6 +19,24 @@ import org.w3c.files.BlobPropertyBag
 import org.w3c.dom.url.URL
 
 fun main() {
+    renderComposeHtml()
+    setupShirtcuts()
+}
+
+private fun renderComposeHtml() {
+    renderComposable(rootElementId = "root") {
+        HelloComposeHtml()
+    }
+}
+
+@Composable
+private fun HelloComposeHtml() {
+    Div {
+        Text("Hello from Compose Html")
+    }
+}
+
+private fun setupShirtcuts() {
     document.addEventListener("keydown", { event ->
         val e = event as KeyboardEvent
         if (e.ctrlKey && e.shiftKey) {
@@ -22,10 +45,12 @@ fun main() {
                     e.preventDefault()
                     makeTextElementsEditable()
                 }
+
                 "p" -> {
                     e.preventDefault()
                     disableEditableMode()
                 }
+
                 "s" -> {
                     e.preventDefault()
                     serializeAndDownload()

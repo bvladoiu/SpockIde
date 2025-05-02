@@ -8,6 +8,8 @@ val jsBrowserProductionWebpackTask = "jsBrowserProductionWebpack"
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.composeCompiler)
 }
 
 group = "spock.lair.browser"
@@ -15,7 +17,7 @@ version = "1.0.0"
 
 
 kotlin {
-    jvm{
+    jvm {
         mainRun {
             mainClass.set("spock.lair.JvmMainKt")
         }
@@ -30,31 +32,40 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)
+                implementation(compose.runtime)
+                implementation(project.dependencies.platform(libs.compose.bom))
             }
         }
         val jvmMain by getting {
             dependencies {
-                implementation(libs.logback.classic)
                 implementation(libs.microsoft.playwright)
-                implementation(libs.ktor.server.core)
-                implementation(libs.ktor.server.websockets)
-                implementation(libs.ktor.server.call.logging)
-                implementation(libs.ktor.server.cio)
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.cio)
-                implementation(libs.ktor.client.websockets)
-                implementation(libs.native.hooks)
+                implementation(compose.desktop.currentOs)
             }
         }
         val jsMain by getting {
             dependencies {
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.js)
-                implementation(libs.ktor.client.websockets)
                 implementation(libs.kotlin.wrappers.browser)
                 implementation(libs.kotlin.css)
+                implementation(compose.html.core)
+                implementation(libs.composables.core)
             }
         }
+    }
+}
+
+compose.desktop {
+    application {
+        mainClass = "spock.lair.JvmMainKt"
+        nativeDistributions {
+            targetFormats(
+                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
+                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
+                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb
+            )
+            packageName = "Browser"
+            packageVersion = "1.0.0"
+        }
+        jvmArgs += listOf("-Xmx1G", "-Dfile.encoding=UTF-8")
     }
 }
 

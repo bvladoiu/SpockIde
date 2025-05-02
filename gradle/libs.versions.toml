@@ -1,5 +1,5 @@
 [versions]
-activityCompose = "1.7.2"
+activityCompose = "1.9.3"
 agp = "8.11.0-alpha07"
 android-compileSdk = "34"
 android-minSdk = "24"
@@ -35,14 +35,15 @@ jnativehook = "2.2.2"
 kotlin-css = "1.0.0-pre.156-kotlin-1.5.0"
 kotlin-wrappers-browser = "2025.4.16"
 kotlin-wrappers-browser-js = "2025.4.16"
-# compose-bom = "2025.04.00"
+compose-bom = "2024.06.00"
+composables-core = "1.29.0"
 # sqldelight = "2.0.1" # Removed as part of database purge
 sqlite-jdbc = "3.45.1.0"
 sqlite-driver = "2.0.1"
 graalvm = "23.1.2"
 
 [libraries]
-# compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 kotlin-css = { module = "org.jetbrains:kotlin-css", name = "kotlin-css", version.ref = "kotlin-css" }
 kotlin-wrappers-browser = { module = "org.jetbrains.kotlin-wrappers:kotlin-browser", version.ref = "kotlin-wrappers-browser" }
 kotlin-wrappers-browser-js = { module = "org.jetbrains.kotlin-wrappers:kotlin-browser-js", version.ref = "kotlin-wrappers-browser-js" }
@@ -55,6 +56,7 @@ sqlite-jdbc = { group = "org.xerial", name = "sqlite-jdbc", version.ref = "sqlit
 # sqldelight-jdbc-driver = { group = "app.cash.sqldelight", name = "jdbc-driver", version.ref = "sqlite-driver" } # Removed as part of database purge
 graalvm-sdk = { group = "org.graalvm.sdk", name = "graal-sdk", version.ref = "graalvm" }
 graalvm-nativeimage = { group = "org.graalvm.nativeimage", name = "svm", version.ref = "graalvm" }
+composables-core = { group = "com.composables", name = "core", version.ref = "composables-core" }
 
 microsoft-playwright = { group = "com.microsoft.playwright", name = "playwright", version.ref = "playwright" }
 slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
