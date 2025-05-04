@@ -1,5 +1,8 @@
 # Tasks
 
+## Added Home Page Template - 05/02/2025
+Created a home.html file in the browser module's JS resources directory with a complete landing page template for Prisma-Software. The page includes sections for company introduction, core expertise, and latest updates, along with proper styling and browser.js script integration.
+
 ## Added Compose HTML Entrypoint - 05/15/2024
 Created an index.html file in the browser module's JS resources directory with a root element and script tag. Modified JsMain.kt to render a "Hello from Compose Html" Text composable using Compose HTML.
 
