@@ -1,4 +1,4 @@
-package spock.lair
+package spock.lair.drafts
 
 import kotlinx.browser.document
 import org.w3c.dom.Element
@@ -15,7 +15,7 @@ class CssBuilder {
         properties[name] = value
     }
 
-    // Common CSS properties
+
     fun outline(value: String) = property("outline", value)
     fun userSelect(value: String) = property("user-select", value)
     fun pointerEvents(value: String) = property("pointer-events", value)
@@ -71,14 +71,13 @@ class ElementBuilder(private val element: Element) {
     }
 }
 
-// Function to create an element with DSL
+
 fun element(tagName: String, init: ElementBuilder.() -> Unit): Element {
     val element = document.createElement(tagName)
     ElementBuilder(element).init()
     return element
 }
 
-// Predefined CSS styles
 fun CssBuilder.editableElement() {
     outline("1px dashed red")
     userSelect("text !important")

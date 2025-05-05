@@ -1,9 +1,8 @@
-package spock.lair
+package spock.lair.drafts
 
 import androidx.compose.runtime.Composable
 import kotlinx.browser.document
 import kotlinx.browser.window
-import org.jetbrains.compose.web.css.Style
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.renderComposable
@@ -17,11 +16,11 @@ import org.w3c.dom.events.MouseEvent
 import org.w3c.files.Blob
 import org.w3c.files.BlobPropertyBag
 import org.w3c.dom.url.URL
-
+/*
 fun main() {
     renderComposeHtml()
     setupShirtcuts()
-}
+}*/
 
 private fun renderComposeHtml() {
     renderComposable(rootElementId = "root") {
